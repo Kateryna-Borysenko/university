@@ -1,22 +1,22 @@
 import PropTypes from "prop-types";
-import univerBuilding from "../../../images/building.png";
+import univerBuildingImg from "../../../images/building.png";
 import { ReactComponent as EditIcon } from "../../../images/edit.svg";
 import { ReactComponent as DeleteIcon } from "../../../images/delete.svg";
+import s from "./Card.module.css";
 
 const Card = ({ name }) => {
   return (
-    <div>
-      Card
-      <div>
-        <img src={univerBuilding} alt="University" />
+    <div className={s.card}>
+      <div className={s.imgWrapper}>
+        <img src={univerBuildingImg} alt="University" />
       </div>
-      <p>университет</p>
-      <h3>{name}</h3>
-      <div>
-        <button>
+      <p className={s.text}>университет</p>
+      <h3 className={`heading ${s.wrapper}`}>{name}</h3>
+      <div className={s.btn_container}>
+        <button aria-label="Edit">
           <DeleteIcon />
         </button>
-        <button>
+        <button aria-label="Delete">
           <EditIcon />
         </button>
       </div>

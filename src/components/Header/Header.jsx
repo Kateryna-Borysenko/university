@@ -2,12 +2,7 @@ import PropTypes from "prop-types";
 import s from "./Header.module.css";
 
 const Header = ({ title }) => {
-  return (
-    <header>
-      <span>Header</span>
-      {title && <h2>{title}</h2>}
-    </header>
-  );
+  return <header>{title && <h2>{title}</h2>}</header>;
 };
 
 Header.propTypes = {

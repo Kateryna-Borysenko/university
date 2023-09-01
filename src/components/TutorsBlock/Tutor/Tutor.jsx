@@ -1,5 +1,7 @@
-import React from "react";
 import PropTypes from "prop-types";
+import { ReactComponent as PhoneIcon } from "../../../images/phone.svg";
+import { ReactComponent as MailIcon } from "../../../images/mail.svg";
+import { ReactComponent as LocationIcon } from "../../../images/location.svg";
 
 const Tutor = ({
   firstName,
@@ -11,21 +13,24 @@ const Tutor = ({
   options,
 }) => {
   return (
-    <div>
-      <div>
+    <div className="block">
+      <div className="name">
         <p>{lastName}</p>
         <p>{firstName}</p>
         <p>{patronymic}</p>
       </div>
-      <div>
-        <p>
-          <span>{phone}</span>
+      <div className="data">
+        <p className="dataText">
+          <PhoneIcon />
+          <span className="text">{phone}</span>
         </p>
-        <p>
-          <span>{email}</span>
+        <p className="dataText">
+          <MailIcon />
+          <span className="text">{email}</span>
         </p>
-        <p>
-          <span>{city}</span>
+        <p className="dataText">
+          <LocationIcon />
+          <span className="text">{city}</span>
         </p>
       </div>
       <div>
