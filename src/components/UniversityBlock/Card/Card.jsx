@@ -7,16 +7,16 @@ import s from "./Card.module.css";
 const Card = ({ name }) => {
   return (
     <div className={s.card}>
-      <div className={s.imgWrapper}>
+      <div className={s.img_wrapper}>
         <img src={univerBuildingImg} alt="University" />
       </div>
       <p className={s.text}>университет</p>
       <h3 className={`heading ${s.wrapper}`}>{name}</h3>
       <div className={s.btn_container}>
-        <button aria-label="Edit">
+        <button className={s.button} aria-label="Edit">
           <DeleteIcon />
         </button>
-        <button aria-label="Delete">
+        <button aria-label="Delete" className={s.button}>
           <EditIcon />
         </button>
       </div>

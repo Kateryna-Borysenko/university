@@ -1,13 +1,12 @@
 import PropTypes from "prop-types";
 import BigButton from "../common/BigButton/BigButton";
-import DepartmentsList from "./DepartmentsList/DepartmentsList";
+import List from "../common/List/List";
 import addIcon from "../../images/add.svg";
 
 const DepartmentsBlock = ({ departments }) => {
-  console.log(departments);
   return (
     <div>
-      <DepartmentsList departments={departments} />
+      <List data={departments} className="departments_container" />
       <BigButton text="Добавить факультет" icon={addIcon} />
     </div>
   );

@@ -1,13 +1,14 @@
 import PropTypes from "prop-types";
+import s from "./Section.module.css";
 
 const Section = ({ icon, title, children }) => {
   return (
-    <section className="section">
-      <div className="header">
-        <div className="img-wrapper">
+    <section className={s.container}>
+      <div className={s.header}>
+        <div className={s.img_container}>
           <img src={icon} alt={title} />
         </div>
-        <h3 className="heading">{title}</h3>
+        <h3 className={s.title}>{title}</h3>
       </div>
       {children}
     </section>

@@ -1,18 +1,19 @@
 import PropTypes from "prop-types";
 import Paper from "../common/Paper/Paper";
 import Card from "./Card/Card";
+import s from "./UniversityBlock.module.css";
 
 const UniversityBlock = ({ name, description }) => {
   return (
-    <div>
+    <section className={s.section}>
       <Paper>
         <Card name={name} />
       </Paper>
 
       <Paper>
-        <p>{description}</p>
+        <p className={s.text}>{description}</p>
       </Paper>
-    </div>
+    </section>
   );
 };
 

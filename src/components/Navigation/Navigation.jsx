@@ -1,13 +1,15 @@
 import PropTypes from "prop-types";
-import { navConfig } from "../../data/navigation";
 import NavItem from "./NavItem/NavItem";
+import s from "./Navigation.module.css";
 
-const Navigation = () => {
+const Navigation = ({ navConfig }) => {
   return (
     <nav>
-      {navConfig.map(({ name }, index) => (
-        <NavItem key={index} name={name} />
-      ))}
+      <ul className={s.container}>
+        {navConfig.map(({ name, icon }, index) => (
+          <NavItem key={index} name={name} icon={icon} />
+        ))}
+      </ul>
     </nav>
   );
 };
