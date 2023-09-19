@@ -1,7 +1,7 @@
 import React from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import Main from "../Main/Main";
-import Footer from "../Footer/Footer";
+// import Footer from '../Footer/Footer';
 import s from "./App.module.css";
 
 const App = () => {
@@ -9,7 +9,7 @@ const App = () => {
     <div className={s.container}>
       <Sidebar />
       <Main />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
