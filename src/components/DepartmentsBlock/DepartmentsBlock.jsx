@@ -1,12 +1,18 @@
 import PropTypes from "prop-types";
 import BigButton from "../common/BigButton/BigButton";
-import List from "../common/List/List";
+import ItemsList from "../ItemsList/ItemsList";
 import addIcon from "../../images/add.svg";
 
 const DepartmentsBlock = ({ departments }) => {
+  const handleStartEdit = () => {};
+  const handleStartDelete = () => {};
   return (
     <div>
-      <List data={departments} className="departments_container" />
+      <ItemsList
+        items={departments}
+        onEditItem={handleStartEdit}
+        onDeleteItem={handleStartDelete}
+      />
       <BigButton text="Добавить факультет" icon={addIcon} />
     </div>
   );
