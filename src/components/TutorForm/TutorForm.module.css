@@ -1,0 +1,33 @@
+.container {
+  max-width: 600px;
+  margin-bottom: 32px;
+}
+
+.formName {
+  margin-bottom: 24px;
+}
+
+.textFieldContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.textField {
+  margin-bottom: 20px;
+  padding: 14px;
+}
+
+.inner {
+  padding: 14px;
+}
+.btn {
+  width: 200px;
+}
+
+.error {
+  color: #f00;
+  margin-top: -30px;
+  margin-bottom: 14px;
+  font-size: 14px;
+}

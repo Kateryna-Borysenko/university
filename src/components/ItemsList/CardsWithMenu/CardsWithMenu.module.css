@@ -24,8 +24,8 @@
 
 .menu {
   position: absolute;
-  bottom: -108px;
-  right: 0;
+  bottom: 40px;
+  right: -225px;
   z-index: 100;
   min-width: 232px;
   padding: 8px 0;
@@ -47,4 +47,8 @@
 .menu-item span:first-of-type {
   height: 24px;
   margin-right: 20px;
+}
+
+.icon {
+  margin-right: 10px;
 }

@@ -36,13 +36,13 @@ const CardWithMenu = ({ text, onEdit, onDelete }) => {
         <div className={s.menu}>
           <div className={s.menu_item} onClick={handleEdit}>
             <span>
-              <img src={editIcon} alt="Edit" />
+              <img className={s.icon} src={editIcon} alt="Edit" />
             </span>
             <span>редактировать</span>
           </div>
           <div className={s.menu_item} onClick={handleDelete}>
             <span>
-              <img src={deleteIcon} alt="Delete" />
+              <img className={s.icon} src={deleteIcon} alt="Delete" />
             </span>
             <span>удалить</span>
           </div>
