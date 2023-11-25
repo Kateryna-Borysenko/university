@@ -7,14 +7,24 @@ import plusImg from "../../images/add.svg";
 import s from "./TutorsBlock.module.css";
 import TutorForm from "../TutorForm/TutorForm";
 
-const TutorsBlock = () => {
-  const [tutors, setTutors] = useState([]);
+const TutorsBlock = (props) => {
+  const [tutors, setTutors] = useState(props.tutors);
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [newTutor, setNewTutor] = useState(null);
 
   const [loading, setLoading] = useState(false);
 
   const toggleForm = () => setIsFormOpen((prevIsFormOpen) => !prevIsFormOpen);
+
+  const addTutor = (formData) => {
+    // запроса
+    setLoading(true);
+    setTimeout(() => {
+      setTutors((prevTutors) => [...prevTutors, formData]);
+      setLoading(false);
+      toggleForm();
+    }, 1000);
+  };
+
   return (
     <div className={s.container}>
       <ul onClick={(e) => console.log()}>
@@ -26,7 +36,7 @@ const TutorsBlock = () => {
           </li>
         ))}
       </ul>
-      {isFormOpen && <TutorForm onSubmit={setNewTutor} />}
+      {isFormOpen && <TutorForm onSubmit={addTutor} />}
       <BigButton
         onClick={toggleForm}
         icon={!isFormOpen && plusImg}
@@ -40,9 +50,15 @@ const TutorsBlock = () => {
 TutorsBlock.propTypes = {
   tutors: PropTypes.arrayOf(
     PropTypes.shape({
-      firstName: PropTypes.string,
+      lastName: PropTypes.string.isRequired,
+      firstName: PropTypes.string.isRequired,
+      phone: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      city: PropTypes.string.isRequired,
+      gender: PropTypes.string.isRequired,
+      isFullTime: PropTypes.bool,
     }),
-  ).isRequired,
+  ),
 };
 
 export default TutorsBlock;

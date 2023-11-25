@@ -24,8 +24,8 @@
 
 .menu {
   position: absolute;
-  bottom: 40px;
-  right: -225px;
+  bottom: -110px;
+  right: -5px;
   z-index: 100;
   min-width: 232px;
   padding: 8px 0;

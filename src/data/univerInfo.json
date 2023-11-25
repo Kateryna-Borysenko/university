@@ -5,31 +5,35 @@
     {
       "firstName": "Мария",
       "lastName": "Руденко",
-      "patronymic": "Александровна",
+      "gender": "женщина",
       "phone": "+38(097) 448 73 11",
-      "email": "rudenko.mail@gmail.com",
+      "email": "rudenko@gmail.com",
       "city": "Полтава",
-      "options": "Создание групп"
+      "isFullTime": true
     },
     {
-      "firstName": "Елена",
-      "lastName": "Иванова",
-      "patronymic": "Александровна",
+      "firstName": "Вадим",
+      "lastName": "Гетьман",
+      "gender": "мужчина",
       "phone": "+38(093) 443 43 51",
-      "email": "ivanova.mail@gmail.com",
-      "city": "Берлин",
-      "options": "Создание групп, редактирование профилей преподавателей"
+      "email": "hetman@gmail.com",
+      "city": "Киев",
+      "isFullTime": false
+    },
+    {
+      "firstName": "Катерина",
+      "lastName": "Борисенко",
+      "gender": "женщина",
+      "phone": "+38(098) 888 88 88",
+      "email": "kate@gmail.com",
+      "city": "Киев",
+      "isFullTime": true
     }
   ],
-  "cities": [
-    { "name": "Киев" },
-    { "name": "Лондон" },
-    { "name": "Берлин" },
-    { "name": "Прага" }
-  ],
+  "cities": [{ "name": "Киев" }, { "name": "Лондон" }, { "name": "Берлин" }],
   "departments": [
     { "name": "Факультет информатики и вычислительной техники" },
-    { "name": "Факультет искусственного интеллекта" },
+    { "name": "Факультет искусственного интеллект" },
     { "name": "Факультет аналитики" }
   ]
 }

@@ -6,7 +6,7 @@ import s from "./ItemsList.module.css";
 const ItemsList = ({ items, onEditItem, onDeleteItem }) => (
   <ul className={s.list}>
     {items.map((item) => (
-      <li className={s.item} key={item.id}>
+      <li className={s.item} key={item.name}>
         <Paper>
           <CardWithMenu
             text={item.name}

@@ -10,7 +10,6 @@
 .textFieldContainer {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
 }
 
 .textField {
@@ -21,8 +20,38 @@
 .inner {
   padding: 14px;
 }
+
+.isFullTime {
+  padding: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.gender {
+  border: 1px solid #000;
+  padding-bottom: 14px;
+  border-radius: 3px;
+}
+
+.genderTitle {
+  padding: 14px;
+}
+
+select {
+  width: 100%;
+}
+
+.span {
+  margin-left: 10px;
+}
+
 .btn {
   width: 200px;
+}
+
+input::placeholder {
+  font-style: inherit;
+  font-size: 14px;
 }
 
 .error {
