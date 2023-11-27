@@ -1,13 +1,19 @@
 import PropTypes from "prop-types";
-import List from "../common/List/List";
+import ItemsList from "../ItemsList/ItemsList";
 import BigButton from "../common/BigButton/BigButton";
 import addIcon from "../../images/add.svg";
 import s from "./CitiesBlock.module.css";
 
 const CitiesBlock = ({ cities }) => {
+  const handleStartEdit = () => {};
+  const handleStartDelete = () => {};
   return (
     <div className={s.container}>
-      <List data={cities} className="cities_container" />
+      <ItemsList
+        items={cities}
+        onEditItem={handleStartEdit}
+        onDeleteItem={handleStartDelete}
+      />
       <BigButton text="Добавить город" icon={addIcon} />
     </div>
   );

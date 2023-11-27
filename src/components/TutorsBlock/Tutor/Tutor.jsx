@@ -7,18 +7,18 @@ import s from "./Tutor.module.css";
 const Tutor = ({
   firstName,
   lastName,
-  patronymic,
+  gender,
   phone,
   email,
   city,
-  options,
+  isFullTime,
 }) => {
   return (
     <div className={s.container}>
       <div className={s.name}>
         <p>{lastName}</p>
         <p>{firstName}</p>
-        <p>{patronymic}</p>
+        <p>{gender}</p>
       </div>
       <div className={s.info}>
         <p className={s.wrapper}>
@@ -35,7 +35,10 @@ const Tutor = ({
         </p>
       </div>
       <div className={s.description}>
-        <p>{options}</p>
+        <p>{isFullTime}</p>
+      </div>
+      <div>
+        <p>На постоянной основе: {isFullTime ? "Да" : "Нет"}</p>
       </div>
     </div>
   );
@@ -44,11 +47,11 @@ const Tutor = ({
 Tutor.propTypes = {
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
-  patronymic: PropTypes.string.isRequired,
   phone: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
-  options: PropTypes.string.isRequired,
+  gender: PropTypes.string.isRequired,
+  isFullTime: PropTypes.bool,
 };
 
 export default Tutor;
