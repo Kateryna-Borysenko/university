@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
+import s from "./BigButton.module.css";
 
 const BigButton = ({ text, icon, onClick }) => {
   return (
-    <button>
-      {icon && <img src={icon} alt={text} />}
-      <span>{text}</span>
+    <button className={s.btn}>
+      {icon && <img src={icon} className={s.img} alt={text} />}
+      <span className={s.text}>{text}</span>
     </button>
   );
 };

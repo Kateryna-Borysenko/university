@@ -1,0 +1,13 @@
+.section {
+  margin-bottom: 32px;
+  display: flex;
+  align-items: stretch;
+  column-gap: 32px;
+}
+
+.text {
+  padding: 22px;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+}
