@@ -5,7 +5,7 @@ import defineStyles from "./defineStyles";
 import "./Sidebar.css";
 
 const Sidebar = () => {
-  const [isOpen, toggleSidebar] = useToggle(true);
+  const [isOpen, toggleSidebar] = useToggle(false);
 
   return (
     <div className={defineStyles(isOpen)}>

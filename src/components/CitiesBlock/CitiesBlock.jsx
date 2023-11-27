@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import ItemsList from "../ItemsList/ItemsList";
 import BigButton from "../common/BigButton/BigButton";
@@ -7,9 +7,12 @@ import EditCard from "../common/EditCard/EditCard";
 import AddForm from "../common/AddForm/AddForm";
 import Filter from "../common/Filter/Filter";
 import DeleteCard from "../common/DeleteCard/DeleteCard";
+import * as storage from "../../services/localStorage";
 import addIcon from "../../images/add.svg";
 import pencilIcon from "../../images/pencil.png";
 import fingerIcon from "../../images/finger.png";
+
+const FILTER_KEY = "filter";
 
 const CitiesBlock = (props) => {
   const [cities, setCities] = useState(props.cities);
@@ -17,7 +20,11 @@ const CitiesBlock = (props) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [activeCity, setActiveCity] = useState("");
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState(() => storage.get(FILTER_KEY) ?? "");
+
+  useEffect(() => {
+    storage.save(FILTER_KEY, filter);
+  }, [filter]);
 
   // ADD CITY
 
@@ -58,7 +65,6 @@ const CitiesBlock = (props) => {
   // DELETE CITY
 
   const handleStartDeleting = (activeCity) => {
-    console.log("🍒 ~ activeCity:", activeCity);
     setActiveCity(activeCity);
     setIsDeleteModalOpen(true);
   };
@@ -88,17 +94,21 @@ const CitiesBlock = (props) => {
 
   return (
     <>
-      <Filter
-        label="Поиск города:"
-        value={filter}
-        onFilterChange={handleFilterChange}
-      />
+      {cities.length > 1 && (
+        <Filter
+          label="Поиск города:"
+          value={filter}
+          onFilterChange={setFilter}
+        />
+      )}
 
-      <ItemsList
-        items={filteredCities}
-        onEditItem={handleStartEditing}
-        onDeleteItem={handleStartDeleting}
-      />
+      {!!filteredCities.length && (
+        <ItemsList
+          items={filteredCities}
+          onEditItem={handleStartEditing}
+          onDeleteItem={handleStartDeleting}
+        />
+      )}
 
       {isAddFormOpen && (
         <AddForm
