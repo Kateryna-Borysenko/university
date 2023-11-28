@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import ItemsList from "../ItemsList/ItemsList";
 import BigButton from "../common/BigButton/BigButton";
@@ -14,17 +15,18 @@ import fingerIcon from "../../images/finger.png";
 
 const FILTER_KEY = "filter";
 
+const ACTION = {
+  NONE: "none",
+  EDIT: "edit",
+  DELETE: "delete",
+};
+
 const CitiesBlock = (props) => {
   const [cities, setCities] = useState(props.cities);
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [openedModal, setOpenedModal] = useState(ACTION.NONE);
   const [activeCity, setActiveCity] = useState("");
   const [filter, setFilter] = useState(() => storage.get(FILTER_KEY) ?? "");
-
-  useEffect(() => {
-    storage.save(FILTER_KEY, filter);
-  }, [filter]);
 
   // ADD CITY
 
@@ -33,11 +35,12 @@ const CitiesBlock = (props) => {
   const addCity = (city) => {
     const isDuplicate = checkIfDuplicate(city);
     if (isDuplicate) {
-      // toast.warn(`City "${city}" is already in the list`);
+      toast.warn(`City "${city}" is already in the list`);
       return;
     }
     const newCity = { name: city };
     setCities((prevCities) => [...prevCities, newCity]);
+    toast.warn(`City "${city}" is added`);
     setIsAddFormOpen(false);
   };
 
@@ -45,9 +48,9 @@ const CitiesBlock = (props) => {
 
   // EDIT CITY
 
-  const handleStartEditing = (activeCity) => {
+  const handleStartEdit = (activeCity) => {
     setActiveCity(activeCity);
-    setIsEditModalOpen(true);
+    setOpenedModal(ACTION.EDIT);
   };
 
   const saveEditedCity = (editedCity) => {
@@ -57,16 +60,14 @@ const CitiesBlock = (props) => {
       ),
     );
     setActiveCity("");
-    setIsEditModalOpen(false);
+    closeModal();
   };
-
-  const closeEditModal = () => setIsEditModalOpen(false);
 
   // DELETE CITY
 
-  const handleStartDeleting = (activeCity) => {
+  const handleStartDelete = (activeCity) => {
     setActiveCity(activeCity);
-    setIsDeleteModalOpen(true);
+    setOpenedModal(ACTION.DELETE);
   };
 
   const deleteCity = () => {
@@ -74,14 +75,19 @@ const CitiesBlock = (props) => {
       prevCities.filter(({ name }) => name !== activeCity),
     );
     setActiveCity("");
-    setIsDeleteModalOpen(false);
+    closeModal();
   };
 
-  const closeDeleteModal = () => setIsDeleteModalOpen(false);
+  const closeModal = () => {
+    setOpenedModal(ACTION.NONE);
+    setActiveCity(null);
+  };
 
   // FILTER CITIES
 
-  const handleFilterChange = (value) => setFilter(value);
+  useEffect(() => {
+    storage.save(FILTER_KEY, filter);
+  }, [filter]);
 
   const getFilteredCities = () => {
     const normalizedFilter = filter.toLowerCase();
@@ -105,8 +111,8 @@ const CitiesBlock = (props) => {
       {!!filteredCities.length && (
         <ItemsList
           items={filteredCities}
-          onEditItem={handleStartEditing}
-          onDeleteItem={handleStartDeleting}
+          onEditItem={handleStartEdit}
+          onDeleteItem={handleStartDelete}
         />
       )}
 
@@ -124,10 +130,10 @@ const CitiesBlock = (props) => {
         onClick={toggleAddForm}
       />
 
-      {isEditModalOpen && (
+      {openedModal === ACTION.EDIT && (
         <Modal
           title="Редактировать информацию о городе"
-          onClose={closeEditModal}
+          onClose={closeModal}
           icon={pencilIcon}
         >
           <EditCard
@@ -138,16 +144,12 @@ const CitiesBlock = (props) => {
         </Modal>
       )}
 
-      {isDeleteModalOpen && (
-        <Modal
-          title="Удаление города"
-          onClose={closeDeleteModal}
-          icon={fingerIcon}
-        >
+      {openedModal === ACTION.DELETE && (
+        <Modal title="Удаление города" onClose={closeModal} icon={fingerIcon}>
           <DeleteCard
             text="Будут удалены все материалы и информация о городе."
             onDelete={deleteCity}
-            onClose={closeDeleteModal}
+            onClose={closeModal}
           />
         </Modal>
       )}
