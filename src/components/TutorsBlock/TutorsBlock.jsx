@@ -1,64 +1,143 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
+import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import BigButton from "../common/BigButton/BigButton";
+import Loader from "../common/Loader/Loader";
+import ErrorMsg from "../common/ErrorMsg/ErrorMsg";
+import Skeleton from "../common/Skeleton/Skeleton";
 import Paper from "../common/Paper/Paper";
 import Tutor from "./Tutor/Tutor";
-import plusImg from "../../images/add.svg";
-import s from "./TutorsBlock.module.css";
 import TutorForm from "../TutorForm/TutorForm";
+import * as api from "../../services/api";
+import s from "./TutorsBlock.module.css";
+import plusImg from "../../images/add.svg";
 
-const TutorsBlock = (props) => {
-  const [tutors, setTutors] = useState(props.tutors);
+const API_ENDPOINT = "tutors";
+
+const TutorsBlock = () => {
+  const [tutors, setTutors] = useState([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [newTutor, setNewTutor] = useState(null);
 
+  // api request status
+  const [firstLoading, setFirstLoading] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // FETCH TUTORS
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    const fetchTutors = async () => {
+      setFirstLoading(true);
+      setLoading(true);
+      try {
+        const tutors = await api.getData(API_ENDPOINT, { signal });
+        setTutors(tutors);
+      } catch (error) {
+        if (!signal.aborted) {
+          setError(error.message);
+        }
+      } finally {
+        if (!signal.aborted) {
+          setFirstLoading(false);
+          setLoading(false);
+        }
+      }
+    };
+    fetchTutors();
+
+    return () => {
+      controller.abort();
+    };
+  }, []);
+
+  // ADD TUTOR
+
+  useEffect(() => {
+    if (!newTutor) return;
+
+    let isTutorsMounted = true;
+    const addTutor = async () => {
+      setLoading(true);
+      setError(null);
+
+      const isDuplicateEmail = tutors.some(
+        (tutor) => tutor.email === newTutor.email,
+      );
+
+      if (isDuplicateEmail) {
+        if (isTutorsMounted) {
+          toast.warn(`User with this email ${newTutor.email} already exists`);
+          setLoading(false);
+          return;
+        }
+      }
+
+      try {
+        const savedTutor = await api.saveItem(API_ENDPOINT, newTutor);
+        if (isTutorsMounted) {
+          setTutors((prevTutors) => [...prevTutors, savedTutor]);
+        }
+      } catch (error) {
+        if (isTutorsMounted) {
+          setError(error.message);
+        }
+      } finally {
+        if (isTutorsMounted) {
+          setLoading(false);
+          setNewTutor(null);
+          setIsFormOpen(false);
+        }
+      }
+    };
+
+    addTutor();
+
+    return () => {
+      isTutorsMounted = false;
+    };
+  }, [newTutor, tutors]);
 
   const toggleForm = () => setIsFormOpen((prevIsFormOpen) => !prevIsFormOpen);
 
-  const addTutor = (formData) => {
-    // запроса
-    setLoading(true);
-    setTimeout(() => {
-      setTutors((prevTutors) => [...prevTutors, formData]);
-      setLoading(false);
-      toggleForm();
-    }, 1000);
-  };
+  const noTutors = !firstLoading && !tutors.length;
 
   return (
-    <div className={s.container}>
-      <ul onClick={(e) => console.log()}>
-        {tutors.map((tutor) => (
-          <li key={tutor.email} className={s.tutor_container}>
-            <Paper>
-              <Tutor {...tutor} />
-            </Paper>
-          </li>
-        ))}
-      </ul>
-      {isFormOpen && <TutorForm onSubmit={addTutor} />}
-      <BigButton
-        onClick={toggleForm}
-        icon={!isFormOpen && plusImg}
-        text={isFormOpen ? "Отменить добавление" : "Добавить преподавателя"}
-        // disabled={loading} //Todo: понадобится при запросе
-      />
-    </div>
-  );
-};
+    <>
+      {firstLoading && <Skeleton />}
 
-TutorsBlock.propTypes = {
-  tutors: PropTypes.arrayOf(
-    PropTypes.shape({
-      lastName: PropTypes.string.isRequired,
-      firstName: PropTypes.string.isRequired,
-      phone: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired,
-      city: PropTypes.string.isRequired,
-      gender: PropTypes.string.isRequired,
-      isFullTime: PropTypes.bool,
-    }),
-  ),
+      {loading && <Loader />}
+
+      {noTutors && <h4 className={s.noTutors}>No tutors yet</h4>}
+
+      {!!tutors.length && (
+        <div className={s.container}>
+          <ul>
+            {tutors.map((tutor) => (
+              <li key={tutor.id} className={s.tutor_container}>
+                <Paper>
+                  <Tutor {...tutor} />
+                </Paper>
+              </li>
+            ))}
+          </ul>
+
+          {isFormOpen && <TutorForm onSubmit={setNewTutor} />}
+
+          {error && <ErrorMsg message={error} />}
+
+          <BigButton
+            onClick={toggleForm}
+            icon={!isFormOpen && plusImg}
+            text={isFormOpen ? "Отменить добавление" : "Добавить преподавателя"}
+            disabled={loading}
+          />
+        </div>
+      )}
+    </>
+  );
 };
 
 export default TutorsBlock;

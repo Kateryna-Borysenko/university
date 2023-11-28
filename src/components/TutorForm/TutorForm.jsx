@@ -26,7 +26,6 @@ const TutorForm = ({ onSubmit }) => {
       city,
       gender,
     };
-    console.log("Form Data Submitted:", formData);
     onSubmit(formData);
     reset();
   };
