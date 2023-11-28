@@ -1,0 +1,20 @@
+.container {
+  width: 370px;
+  margin-bottom: 32px;
+}
+
+.inner {
+  padding: 14px;
+}
+
+.textField {
+  width: 250px;
+  padding: 14px;
+  margin: 0 0 20px 0;
+}
+
+.formName {
+  margin-bottom: 24px;
+  font-size: 16px;
+  font-weight: 700;
+}
