@@ -6,12 +6,12 @@ import s from "./ItemsList.module.css";
 const ItemsList = ({ items, onEditItem, onDeleteItem }) => (
   <ul className={s.list}>
     {items.map((item) => (
-      <li className={s.item} key={item.name}>
+      <li className={s.item} key={item.id}>
         <Paper>
           <CardWithMenu
             text={item.name}
-            onEdit={() => onEditItem(item.name)}
-            onDelete={() => onDeleteItem(item.name)}
+            onEdit={() => onEditItem(item)}
+            onDelete={() => onDeleteItem(item)}
           />
         </Paper>
       </li>
