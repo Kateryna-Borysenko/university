@@ -21,8 +21,8 @@ const EditCard = ({ label, onSave, inputValue }) => {
   };
 
   const reset = () => setInput("");
-
-  const inputId = nanoid();
+  //для хранения inputId использовать useRef с начальным значением nanoid(),чтоб постоянно не вызывалась, так же можно вынести за пределы ф-ции EditCard
+  const { current: inputId } = useRef(nanoid());
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
