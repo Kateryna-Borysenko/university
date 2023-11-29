@@ -22,15 +22,15 @@ const Tutor = ({
       </div>
       <div className={s.info}>
         <p className={s.wrapper}>
-          <PhoneIcon />
+          <PhoneIcon className={s.icon} />
           <span className={s.text}>{phone}</span>
         </p>
         <p className={s.wrapper}>
-          <MailIcon />
+          <MailIcon className={s.icon} />
           <span className={s.text}>{email}</span>
         </p>
         <p className={s.wrapper}>
-          <LocationIcon />
+          <LocationIcon className={s.icon} />
           <span className={s.text}>{city}</span>
         </p>
       </div>
