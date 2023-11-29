@@ -1,11 +1,14 @@
+import { useContext } from "react";
 import PropTypes from "prop-types";
+import { ThemeContext, themes } from "../../../context/themeContext";
 import s from "./Filter.module.css";
 
 //TODO: реализовать подсветку и фокус на инпуте
 const Filter = ({ label = "", value, onFilterChange }) => {
+  const { theme } = useContext(ThemeContext);
   return (
     <div className={s.container}>
-      <label>
+      <label className={theme === themes.light ? s.lightTheme : s.darkTheme}>
         {label}
         <input
           className={s.textField}

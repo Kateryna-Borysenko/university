@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import ItemsList from "../ItemsList/ItemsList";
 import BigButton from "../common/BigButton/BigButton";
+import { useLocalStorage } from "react-use";
 import Modal from "../common/Modal/Modal";
 import Loader from "../common/Loader/Loader";
 import ErrorMsg from "../common/ErrorMsg/ErrorMsg";
@@ -10,7 +11,6 @@ import EditCard from "../common/EditCard/EditCard";
 import AddForm from "../common/AddForm/AddForm";
 import Filter from "../common/Filter/Filter";
 import DeleteCard from "../common/DeleteCard/DeleteCard";
-import * as storage from "../../services/localStorage";
 import * as api from "../../services/api";
 import addIcon from "../../images/add.svg";
 import pencilIcon from "../../images/pencil.png";
@@ -29,7 +29,7 @@ const FILTER_KEY = "filter";
 
 const CitiesBlock = () => {
   const [cities, setCities] = useState([]);
-  const [filter, setFilter] = useState(() => storage.get(FILTER_KEY) ?? "");
+  const [filter, setFilter] = useLocalStorage(FILTER_KEY, "");
 
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
   const [openedModal, setOpenedModal] = useState(ACTION.NONE);
@@ -176,20 +176,14 @@ const CitiesBlock = () => {
 
   // FILTER CITIES
 
-  useEffect(() => {
-    storage.save(FILTER_KEY, filter);
-  }, [filter]);
-
-  const getFilteredCities = () => {
+  const filteredCities = useMemo(() => {
     const normalizedFilter = filter.toLowerCase();
     return cities.filter((city) =>
       city.name.toLowerCase().includes(normalizedFilter),
     );
-  };
+  }, [cities, filter]);
 
   // RENDER
-
-  const filteredCities = getFilteredCities();
   const noCities = !loading && !cities.length;
 
   return (

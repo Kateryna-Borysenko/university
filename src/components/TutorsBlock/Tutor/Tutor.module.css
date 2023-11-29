@@ -23,3 +23,8 @@
 .description {
   width: 35%;
 }
+
+.icon {
+  height: 20px;
+  width: auto;
+}
