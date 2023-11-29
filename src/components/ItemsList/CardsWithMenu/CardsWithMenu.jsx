@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import PropTypes from "prop-types";
+import useOutsideClickDetector from "../../../hooks/useOutsideClickDetector";
 import { ReactComponent as DotsIcon } from "../../../images/dots.svg";
 import editIcon from "../../../images/edit.svg";
 import deleteIcon from "../../../images/delete.svg";
@@ -8,7 +9,11 @@ import s from "./CardsWithMenu.module.css";
 const CardWithMenu = ({ text, onEdit, onDelete }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const cardRef = useRef(null);
+
   const toggleMenu = () => setIsMenuOpen((prevState) => !prevState);
+
+  useOutsideClickDetector(cardRef, toggleMenu, isMenuOpen);
 
   const handleEdit = () => {
     onEdit();
@@ -21,7 +26,7 @@ const CardWithMenu = ({ text, onEdit, onDelete }) => {
   };
 
   return (
-    <div className={s.card}>
+    <div ref={cardRef} className={s.card}>
       <p>{text}</p>
       <button
         className={s.btn}
