@@ -1,9 +1,12 @@
+import { useContext } from "react";
 import PropTypes from "prop-types";
+import { ThemeContext, themes } from "../../../context/themeContext.js";
 import s from "./NavItem.module.css";
 
 const NavItem = ({ name, icon }) => {
+  const { theme } = useContext(ThemeContext);
   return (
-    <div className={s.container}>
+    <div className={theme === themes.light ? s.lightTheme : s.darkTheme}>
       <span className={s.icon}>{icon}</span>
       <span className={s.name}>{name}</span>
     </div>
