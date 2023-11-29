@@ -23,12 +23,12 @@ const Main = () => {
       <Section icon={tutorsIcon} title="Преподаватели">
         <TutorsBlock />
       </Section>
-      {/* <Section icon={citiesIcon} title="Города">
+      <Section icon={citiesIcon} title="Города">
         <CitiesBlock />
-      </Section> */}
-      <Section icon={departmentsIcon} title="Факультеты">
-        <DepartmentsBlock />
       </Section>
+      {/* <Section icon={departmentsIcon} title="Факультеты">
+        <DepartmentsBlock />
+      </Section> */}
     </main>
   );
 };
