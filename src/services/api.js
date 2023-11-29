@@ -12,6 +12,7 @@ const saveItem = (endpoint, item, options = {}) => {
   const finalOptions = {
     method: "POST",
     body: JSON.stringify(item),
+    // body: item,
     headers: {
       "Content-Type": "application/json; charset=UTF-8",
     },
