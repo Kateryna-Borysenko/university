@@ -8,16 +8,6 @@
   transition: background-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0s;
 }
 
-.lightTheme {
-  composes: container;
-  color: var(--text-color);
-}
-
-.darkTheme {
-  composes: container;
-  color: #fff;
-}
-
 .container:hover {
   background-color: rgba(236, 239, 241, 0.538);
 }
@@ -34,4 +24,8 @@
   letter-spacing: 1.25px;
   text-transform: uppercase;
   text-decoration: none;
+}
+.active {
+  composes: container;
+  background-color: #e1b4d3;
 }

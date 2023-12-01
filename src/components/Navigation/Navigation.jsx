@@ -6,8 +6,8 @@ const Navigation = ({ navConfig }) => {
   return (
     <nav>
       <ul className={s.container}>
-        {navConfig.map(({ name, icon }, index) => (
-          <NavItem key={index} name={name} icon={icon} />
+        {navConfig.map(({ name, icon, path }, index) => (
+          <NavItem key={index} name={name} icon={icon} path={path} />
         ))}
       </ul>
     </nav>
