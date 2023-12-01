@@ -27,10 +27,11 @@ const DepartmentPage = () => {
         .then(setDepartment)
         .catch((err) => {
           toast.error("Факультет не найден");
+          navigate(location.state?.from ?? "/departments");
         });
     };
     fetchDepartment();
-  }, [params.id]);
+  }, [location.state?.from, navigate, params.id]);
 
   const handleGoBack = () => {
     navigate(location.state?.from ?? "/departments");

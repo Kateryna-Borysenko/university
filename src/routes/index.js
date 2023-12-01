@@ -1,6 +1,23 @@
-import DepartmentsListPage from "../pages/DepartmentsListPage/DepartmentsListPage";
-// import DepartmentPage from '../pages/DepartmentPage/DepartmentPage'
-import UniversityPage from "../pages/UniversityPage/UniversityPage";
+import { lazy } from "react";
+
+const DepartmentPage = lazy(() =>
+  import(
+    "../pages/DepartmentPage/DepartmentPage"
+    /* webpackChunkName: "Department___page" */
+  ),
+);
+const DepartmentsListPage = lazy(() =>
+  import(
+    "../pages/DepartmentsListPage/DepartmentsListPage"
+    /* webpackChunkName: "Departments__List___page" */
+  ),
+);
+const UniversityPage = lazy(() =>
+  import(
+    "../pages/UniversityPage/UniversityPage"
+    /* webpackChunkName: "University___page" */
+  ),
+);
 
 const departmentsListRoute = {
   path: "/departments",

@@ -9,7 +9,6 @@ const API_ENDPOINT = "departments";
 const DepartmentsListPage = () => {
   const [departments, setDepartments] = useState([]);
   const location = useLocation();
-  // console.log(location);
 
   useEffect(() => {
     const fetchDepartments = () => {
