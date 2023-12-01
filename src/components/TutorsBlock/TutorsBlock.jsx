@@ -26,31 +26,20 @@ const TutorsBlock = () => {
   // FETCH TUTORS
 
   useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-
     const fetchTutors = async () => {
       setFirstLoading(true);
       setLoading(true);
       try {
-        const tutors = await api.getData(API_ENDPOINT, { signal });
+        const tutors = await api.getData(API_ENDPOINT);
         setTutors(tutors);
       } catch (error) {
-        if (!signal.aborted) {
-          setError(error.message);
-        }
+        setError(error.message);
       } finally {
-        if (!signal.aborted) {
-          setFirstLoading(false);
-          setLoading(false);
-        }
+        setFirstLoading(false);
+        setLoading(false);
       }
     };
     fetchTutors();
-
-    return () => {
-      controller.abort();
-    };
   }, []);
 
   // ADD TUTOR
