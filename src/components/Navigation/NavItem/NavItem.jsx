@@ -1,15 +1,14 @@
-import { useContext } from "react";
 import PropTypes from "prop-types";
-import { ThemeContext, themes } from "../../../context/themeContext.js";
+import { NavLink } from "react-router-dom";
 import s from "./NavItem.module.css";
 
-const NavItem = ({ name, icon }) => {
-  const { theme } = useContext(ThemeContext);
+const NavItem = ({ name, icon, path }) => {
+  const setActive = ({ isActive }) => (isActive ? [s.active] : s.container);
   return (
-    <div className={theme === themes.light ? s.lightTheme : s.darkTheme}>
+    <NavLink to={path} className={setActive}>
       <span className={s.icon}>{icon}</span>
       <span className={s.name}>{name}</span>
-    </div>
+    </NavLink>
   );
 };
 
