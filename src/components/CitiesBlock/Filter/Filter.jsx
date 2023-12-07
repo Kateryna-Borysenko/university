@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { ThemeContext, themes } from "../../../context/themeContext";
@@ -11,11 +11,18 @@ const Filter = ({ label = "" }) => {
   const dispatch = useDispatch();
 
   const { theme } = useContext(ThemeContext);
+
+  const inputRef = useRef(null);
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   return (
     <div className={s.container}>
       <label className={theme === themes.light ? s.lightTheme : s.darkTheme}>
         {label}
         <input
+          ref={inputRef}
           className={s.textField}
           type="text"
           value={filter}
