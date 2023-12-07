@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import PropTypes from "prop-types";
 import ItemsList from "../ItemsList/ItemsList";
 import BigButton from "../common/BigButton/BigButton";
 import Modal from "../common/Modal/Modal";
@@ -244,10 +243,6 @@ const CitiesBlock = () => {
       )}
     </>
   );
-};
-
-CitiesBlock.propTypes = {
-  cities: PropTypes.array.isRequired,
 };
 
 export default CitiesBlock;
