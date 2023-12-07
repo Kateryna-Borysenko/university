@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import BigButton from "../common/BigButton/BigButton";
-import Paper from "../common/Paper/Paper";
+import BigButton from "../../common/BigButton/BigButton";
+import Paper from "../../common/Paper/Paper";
 import s from "./TutorForm.module.css";
 import { GENDER } from "./formData";
 import { citiesOptions } from "./formData";

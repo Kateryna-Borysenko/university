@@ -6,7 +6,7 @@ import ErrorMsg from "../common/ErrorMsg/ErrorMsg";
 import Skeleton from "../common/Skeleton/Skeleton";
 import Paper from "../common/Paper/Paper";
 import Tutor from "./Tutor/Tutor";
-import TutorForm from "../TutorForm/TutorForm";
+import TutorForm from "./TutorForm/TutorForm";
 import * as api from "../../services/api";
 import s from "./TutorsBlock.module.css";
 import plusImg from "../../images/add.svg";
