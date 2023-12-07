@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
+import { useState, useEffect, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import BigButton from "../common/BigButton/BigButton";
 import Loader from "../common/Loader/Loader";
 import ErrorMsg from "../common/ErrorMsg/ErrorMsg";
@@ -8,17 +8,18 @@ import Paper from "../common/Paper/Paper";
 import Tutor from "./Tutor/Tutor";
 import TutorForm from "./TutorForm/TutorForm";
 import * as api from "../../services/api";
-import s from "./TutorsBlock.module.css";
+import { setTutors } from "../../redux/tutors/tutorsActions";
 import plusImg from "../../images/add.svg";
+import s from "./TutorsBlock.module.css";
 
 const API_ENDPOINT = "tutors";
 
 const TutorsBlock = () => {
-  const [tutors, setTutors] = useState([]);
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [newTutor, setNewTutor] = useState(null);
+  const tutors = useSelector((state) => state.tutors);
+  const dispatch = useDispatch();
 
-  // api request status
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
   const [firstLoading, setFirstLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -31,7 +32,7 @@ const TutorsBlock = () => {
       setLoading(true);
       try {
         const tutors = await api.getData(API_ENDPOINT);
-        setTutors(tutors);
+        dispatch(setTutors(tutors));
       } catch (error) {
         setError(error.message);
       } finally {
@@ -40,56 +41,12 @@ const TutorsBlock = () => {
       }
     };
     fetchTutors();
-  }, []);
+  }, [dispatch]);
 
-  // ADD TUTOR
-
-  useEffect(() => {
-    if (!newTutor) return;
-
-    let isTutorsMounted = true;
-    const addTutor = async () => {
-      setLoading(true);
-      setError(null);
-
-      const isDuplicateEmail = tutors.some(
-        (tutor) => tutor.email === newTutor.email,
-      );
-
-      if (isDuplicateEmail) {
-        if (isTutorsMounted) {
-          toast.warn(`User with this email ${newTutor.email} already exists`);
-          setLoading(false);
-          return;
-        }
-      }
-
-      try {
-        const savedTutor = await api.saveItem(API_ENDPOINT, newTutor);
-        if (isTutorsMounted) {
-          setTutors((prevTutors) => [...prevTutors, savedTutor]);
-        }
-      } catch (error) {
-        if (isTutorsMounted) {
-          setError(error.message);
-        }
-      } finally {
-        if (isTutorsMounted) {
-          setLoading(false);
-          setNewTutor(null);
-          setIsFormOpen(false);
-        }
-      }
-    };
-
-    addTutor();
-
-    return () => {
-      isTutorsMounted = false;
-    };
-  }, [newTutor, tutors]);
-
-  const toggleForm = () => setIsFormOpen((prevIsFormOpen) => !prevIsFormOpen);
+  const toggleForm = useCallback(
+    () => setIsFormOpen((prevIsFormOpen) => !prevIsFormOpen),
+    [],
+  );
 
   const noTutors = !firstLoading && !tutors.length;
 
@@ -113,7 +70,7 @@ const TutorsBlock = () => {
             ))}
           </ul>
 
-          {isFormOpen && <TutorForm onSubmit={setNewTutor} />}
+          {isFormOpen && <TutorForm closeForm={toggleForm} />}
 
           {error && <ErrorMsg message={error} />}
 
