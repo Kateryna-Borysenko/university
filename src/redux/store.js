@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { createLogger } from "redux-logger";
 import {
   persistStore,
+  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -9,8 +10,11 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import tutorsReducer from "./tutors/tutorReducer";
+import citiesReducer from "./cities/citiesReducer";
 
+//structure
 // {
 //   tutors: [],
 //   cities: {
@@ -20,6 +24,12 @@ import tutorsReducer from "./tutors/tutorReducer";
 //   departments: [],
 // }
 
+const persistCitiesConfig = {
+  key: "filter",
+  storage,
+  whitelist: ["filter"],
+};
+
 const logger = createLogger({
   collapsed: (getState, action, logEntry) => !logEntry.error,
   timestamp: false,
@@ -28,7 +38,7 @@ const logger = createLogger({
 const store = configureStore({
   reducer: {
     tutors: tutorsReducer,
-    cities: () => [],
+    cities: persistReducer(persistCitiesConfig, citiesReducer),
     departments: () => [],
   },
   middleware: (getDefaultMiddleware) =>
