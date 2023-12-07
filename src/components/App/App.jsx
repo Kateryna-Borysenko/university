@@ -21,7 +21,7 @@ const App = () => {
         <Sidebar />
         <Main />
       </ThemeContext.Provider>
-      <ToastContainer theme="colored" />
+      <ToastContainer theme="light" />
       {/* <Footer /> */}
     </div>
   );

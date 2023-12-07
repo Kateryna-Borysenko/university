@@ -10,19 +10,20 @@ import Loader from "../components/common/Loader/Loader";
 import Paper from "../components/common/Paper/Paper";
 import { publicRoutes } from "./index";
 
-const DepartmentPage = lazy(() =>
-  import(
-    "../pages/DepartmentPage/DepartmentPage" /* webpackChunkName: "Department___page" */
-  ),
+const DepartmentPage = lazy(
+  () =>
+    import(
+      "../pages/DepartmentPage/DepartmentPage" /* webpackChunkName: "Department___page" */
+    ),
 );
-const NotFoundPage = lazy(() =>
-  import(
-    "../pages/NotFoundPage/NotFoundPage" /* webpackChunkName: "NotFound___page" */
-  ),
+const NotFoundPage = lazy(
+  () =>
+    import(
+      "../pages/NotFoundPage/NotFoundPage" /* webpackChunkName: "NotFound___page" */
+    ),
 );
 
 const AllRoutes = () => {
-  const location = useLocation();
   return (
     <Suspense fallback={<Loader />}>
       <Routes>
