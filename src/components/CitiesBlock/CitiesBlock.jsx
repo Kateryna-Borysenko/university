@@ -1,17 +1,18 @@
 import { useState, useEffect, useMemo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import ItemsList from "../ItemsList/ItemsList";
 import BigButton from "../common/BigButton/BigButton";
-import { useLocalStorage } from "react-use";
 import Modal from "../common/Modal/Modal";
 import Loader from "../common/Loader/Loader";
 import ErrorMsg from "../common/ErrorMsg/ErrorMsg";
 import EditCard from "../common/EditCard/EditCard";
 import AddForm from "../common/AddForm/AddForm";
-import Filter from "../common/Filter/Filter";
+import Filter from "./Filter/Filter";
 import DeleteCard from "../common/DeleteCard/DeleteCard";
 import * as api from "../../services/api";
+import * as actions from "../../redux/cities/citiesActions";
 import addIcon from "../../images/add.svg";
 import pencilIcon from "../../images/pencil.png";
 import fingerIcon from "../../images/finger.png";
@@ -25,11 +26,10 @@ const ACTION = {
   DELETE: "delete",
 };
 
-const FILTER_KEY = "filter";
-
 const CitiesBlock = () => {
-  const [cities, setCities] = useState([]);
-  const [filter, setFilter] = useLocalStorage(FILTER_KEY, "");
+  const cities = useSelector((state) => state.cities.items);
+  const filter = useSelector((state) => state.cities.filter);
+  const dispatch = useDispatch();
 
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
   const [openedModal, setOpenedModal] = useState(ACTION.NONE);
@@ -47,8 +47,8 @@ const CitiesBlock = () => {
       setLoading(true);
       setError(null);
       try {
-        const cities = await api.getData(API_ENDPOINT);
-        setCities(cities);
+        const apiCities = await api.getData(API_ENDPOINT);
+        dispatch(actions.setCities(apiCities));
       } catch (error) {
         setError(error.message);
       } finally {
@@ -56,7 +56,7 @@ const CitiesBlock = () => {
       }
     };
     fetchCities();
-  }, []);
+  }, [dispatch]);
 
   // ADD CITY
 
@@ -83,7 +83,7 @@ const CitiesBlock = () => {
       setError(null);
       try {
         const newCity = await api.saveItem(API_ENDPOINT, activeCity);
-        setCities((prevCities) => [...prevCities, newCity]);
+        dispatch(actions.addCity(newCity));
         toggleAddForm();
       } catch (error) {
         setError(error.message);
@@ -94,7 +94,7 @@ const CitiesBlock = () => {
       }
     };
     addCity();
-  }, [action, activeCity]);
+  }, [action, activeCity, dispatch]);
 
   // EDIT CITY
 
@@ -120,11 +120,7 @@ const CitiesBlock = () => {
       setError(null);
       try {
         const updatedCity = await api.editItem(API_ENDPOINT, activeCity);
-        setCities((prevCities) =>
-          prevCities.map((city) =>
-            city.id === updatedCity.id ? updatedCity : city,
-          ),
-        );
+        dispatch(actions.editCity(updatedCity));
       } catch (error) {
         setError(error.message);
       } finally {
@@ -135,7 +131,7 @@ const CitiesBlock = () => {
       }
     };
     editCity();
-  }, [action, activeCity]);
+  }, [action, activeCity, dispatch]);
 
   // DELETE CITY
 
@@ -154,9 +150,7 @@ const CitiesBlock = () => {
       setError(null);
       try {
         const deletedCity = await api.deleteItem(API_ENDPOINT, activeCity.id);
-        setCities((prevCities) =>
-          prevCities.filter((city) => city.id !== deletedCity.id),
-        );
+        dispatch(actions.deleteCity(deletedCity.id));
       } catch (error) {
         setError(error.message);
       } finally {
@@ -167,7 +161,7 @@ const CitiesBlock = () => {
       }
     };
     deleteCity();
-  }, [action, activeCity]);
+  }, [action, activeCity, dispatch]);
 
   const closeModal = () => {
     setOpenedModal(ACTION.NONE);
@@ -188,21 +182,15 @@ const CitiesBlock = () => {
 
   useEffect(() => {
     if (cities.length === 1) {
-      setFilter("");
+      dispatch(actions.changeFilter(""));
     }
-  }, [cities.length, setFilter]);
+  }, [cities.length, dispatch]);
 
   return (
     <>
       {loading && <Loader />}
 
-      {cities.length > 1 && (
-        <Filter
-          label="Поиск города:"
-          value={filter}
-          onFilterChange={setFilter}
-        />
-      )}
+      {cities.length > 1 && <Filter label="Поиск города:" />}
 
       {!!filteredCities.length && (
         <ItemsList

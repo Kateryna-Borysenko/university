@@ -15,3 +15,7 @@
 .darkTheme {
   color: #fff;
 }
+
+.textField:focus {
+  outline-color: #e1b4d3;
+}
