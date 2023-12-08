@@ -78,7 +78,7 @@ const TutorForm = ({ closeForm }) => {
 
       <Paper>
         <div className={s.inner}>
-          <h4 className={s.formName}>Добавление преподавателя</h4>
+          <h4 className={s.formName}>{t("tutorForm.title")}</h4>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className={s.textFieldContainer}>
               <input
@@ -119,7 +119,7 @@ const TutorForm = ({ closeForm }) => {
               <select className={s.textField} {...register("city")}>
                 {citiesOptions.map(({ value, label }) => (
                   <option key={value} value={value}>
-                    {t(`${label}`)}
+                    {t(label)}
                   </option>
                 ))}
               </select>

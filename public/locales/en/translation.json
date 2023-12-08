@@ -22,7 +22,8 @@
     "invite": "Invite"
   },
   "tutorForm": {
-    "success-add": "Tutor has been added!",
+    "title": "Adding a tutor",
+    "success-add": "The tutor has been added!",
     "lastName": "Last Name *",
     "firstName": "First Name *",
     "phone": "Phone *",
@@ -36,9 +37,18 @@
     "gender": "Gender *",
     "gender-male": "Male",
     "gender-female": "Female",
-    "isFullTime": "Is full time"
+    "isFullTime": "Is full time",
+    "validationSchema": {
+      "required": "Required field",
+      "firstNameMin": "The name must contain at least 2 letters",
+      "firstNameMax": "The name must contain a maximum of 15 letters",
+      "lastNameMin": "The last name must contain at least 2 letters",
+      "lastNameMax": "The last name must contain a maximum of 20 letters",
+      "phone": "Invalid phone number",
+      "email": "Invalid email",
+      "unique-email": "This email is already exist"
+    }
   },
-
   "cities": {
     "cities": "Cities",
     "no-cities": "No cities yet",
