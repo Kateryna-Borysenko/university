@@ -21,6 +21,24 @@
     "adding-tutor": "Adding tutor",
     "invite": "Invite"
   },
+  "tutorForm": {
+    "success-add": "Tutor has been added!",
+    "lastName": "Last Name *",
+    "firstName": "First Name *",
+    "phone": "Phone *",
+    "email": "Email *",
+    "cities": {
+      "label": "Select city *",
+      "kyiv": "Kyiv",
+      "lviv": "Lviv",
+      "kharkiv": "Kharkiv"
+    },
+    "gender": "Gender *",
+    "gender-male": "Male",
+    "gender-female": "Female",
+    "isFullTime": "Is full time"
+  },
+
   "cities": {
     "cities": "Cities",
     "no-cities": "No cities yet",

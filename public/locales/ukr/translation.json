@@ -21,6 +21,23 @@
     "adding-tutor": "Додавання викладача",
     "invite": "Запросити"
   },
+  "tutorForm": {
+    "success-add": "Tutor has been added!",
+    "lastName": "Прізвище *",
+    "firstName": "Ім'я *",
+    "phone": "Телефон *",
+    "email": "Електронна пошта *",
+    "cities": {
+      "label": "Виберіть місто *",
+      "kyiv": "Київ",
+      "lviv": "Львів",
+      "kharkiv": "Харків"
+    },
+    "gender": "Стать *",
+    "gender-male": "Чоловік",
+    "gender-female": "Жінка",
+    "isFullTime": "Повний робочий день"
+  },
   "cities": {
     "cities": "Міста",
     "no-cities": "Поки немає міст",
