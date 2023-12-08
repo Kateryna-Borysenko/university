@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import BigButton from "../common/BigButton/BigButton";
@@ -23,6 +24,8 @@ const ACTION = {
 };
 
 const DepartmentsBlock = () => {
+  const { t } = useTranslation();
+
   const [departments, setDepartments] = useState([]);
   // form / modal
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
@@ -194,7 +197,9 @@ const DepartmentsBlock = () => {
         />
       )}
 
-      {noDepartments && <h4 className="absence-msg">No departments yet</h4>}
+      {noDepartments && (
+        <h4 className="absence-msg">{t("departments.no-departments")}</h4>
+      )}
 
       {isAddFormOpen && (
         <AddForm
@@ -207,7 +212,11 @@ const DepartmentsBlock = () => {
       {error && <ErrorMsg message={error} />}
 
       <BigButton
-        text={isAddFormOpen ? "Отменить добавление" : "Добавить факультет"}
+        text={
+          isAddFormOpen
+            ? t("common.cancel-add")
+            : t("departments.add-department")
+        }
         icon={!isAddFormOpen && addIcon}
         onClick={toggleAddForm}
         disabled={loading}

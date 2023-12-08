@@ -48,3 +48,6 @@ a {
   text-decoration: none;
   color: inherit;
 }
+.absence-msg {
+  margin-bottom: 32px;
+}

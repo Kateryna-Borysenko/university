@@ -16,6 +16,7 @@
   },
   "tutors": {
     "tutors": "Викладачі",
+    "no-tutors": "Поки викладача немає",
     "add-tutor": "Додати викладача",
     "adding-tutor": "Додавання викладача",
     "invite": "Запросити"
@@ -30,6 +31,7 @@
   },
   "departments": {
     "departments": "Факультети",
+    "no-departments": "Поки немає філій",
     "add-department": "Додати факультет",
     "adding-department": "Додавання філії",
     "department": "Філія",

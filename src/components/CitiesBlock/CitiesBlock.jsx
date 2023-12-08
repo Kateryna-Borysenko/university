@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
@@ -26,6 +27,8 @@ const ACTION = {
 };
 
 const CitiesBlock = () => {
+  const { t } = useTranslation();
+
   const cities = useSelector((state) => state.cities.items);
   const filter = useSelector((state) => state.cities.filter);
   const dispatch = useDispatch();
@@ -199,7 +202,7 @@ const CitiesBlock = () => {
         />
       )}
 
-      {noCities && <h4 className="absence-msg">No cities yet</h4>}
+      {noCities && <h4 className="absence-msg">{t("cities.no-cities")}</h4>}
 
       {isAddFormOpen && (
         <AddForm
@@ -212,7 +215,7 @@ const CitiesBlock = () => {
       {error && <ErrorMsg message={error} />}
 
       <BigButton
-        text={isAddFormOpen ? "Отменить добавление" : "Добавить город"}
+        text={isAddFormOpen ? t("common.cancel-add") : t("cities.add-city")}
         icon={!isAddFormOpen && addIcon}
         onClick={toggleAddForm}
         disabled={loading}
