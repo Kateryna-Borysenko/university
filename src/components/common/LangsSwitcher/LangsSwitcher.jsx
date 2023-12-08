@@ -1,0 +1,36 @@
+import { useTranslation } from "react-i18next";
+import ukrainianFlagIcon from "../../../images/ukraine.png";
+import americanFlagIcon from "../../../images/america.png";
+import s from "./LangsSwitcher.module.css";
+import { useEffect } from "react";
+
+const languages = {
+  en: { icon: americanFlagIcon, nativeName: "English" },
+  ukr: { icon: ukrainianFlagIcon, nativeName: "Українська" },
+};
+
+const LangsSwitcher = () => {
+  const { i18n } = useTranslation();
+
+  return (
+    <div className={s.switcher}>
+      {Object.keys(languages).map((lng) => (
+        <div key={lng} className={s.btnWrapper}>
+          <button
+            className={i18n.resolvedLanguage === lng ? s.active : s.button}
+            type="submit"
+            onClick={() => i18n.changeLanguage(lng)}
+          >
+            <img
+              src={languages[lng].icon}
+              alt={languages[lng].nativeName}
+              width="50"
+            />
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default LangsSwitcher;
