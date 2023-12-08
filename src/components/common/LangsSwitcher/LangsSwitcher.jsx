@@ -2,7 +2,6 @@ import { useTranslation } from "react-i18next";
 import ukrainianFlagIcon from "../../../images/ukraine.png";
 import americanFlagIcon from "../../../images/america.png";
 import s from "./LangsSwitcher.module.css";
-import { useEffect } from "react";
 
 const languages = {
   en: { icon: americanFlagIcon, nativeName: "English" },
