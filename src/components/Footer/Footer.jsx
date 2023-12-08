@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer className={s.footer}>
       <div className={s.wrap}>
-        ©{new Date().getFullYear()} created by
+        ©2023-{new Date().getFullYear()} created with ❤️ by
         <a href="https://github.com/Kateryna-Borysenko" className={s.link}>
           <svg
             className={s.svg}

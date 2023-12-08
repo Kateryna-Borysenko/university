@@ -12,7 +12,9 @@
     "add": "add",
     "cancel-add": "Cancel adding",
     "edit": "edit",
-    "delete": "delete"
+    "delete": "delete",
+    "yes": "yes",
+    "no": "no"
   },
   "tutors": {
     "tutors": "Tutors",

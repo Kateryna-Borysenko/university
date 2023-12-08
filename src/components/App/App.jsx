@@ -4,9 +4,10 @@ import { ThemeContext, themes } from "../../context/themeContext";
 import Sidebar from "../Sidebar/Sidebar";
 import Main from "../Main/Main";
 import Spinner from "../common/Spinner/Spinner";
-// import Footer from '../Footer/Footer';
+import Footer from "../Footer/Footer";
 import s from "./App.module.css";
 import "react-toastify/dist/ReactToastify.css";
+import Container from "../common/Container/Container";
 
 const App = () => {
   const [theme, setTheme] = useState(themes.light);
@@ -18,14 +19,16 @@ const App = () => {
 
   return (
     <Suspense fallback={<Spinner />}>
-      <div className={s.container}>
-        <ThemeContext.Provider value={{ theme, toggleTheme }}>
-          <Sidebar />
-          <Main />
-        </ThemeContext.Provider>
-        <ToastContainer theme="light" />
-        {/* <Footer /> */}
-      </div>
+      <Container>
+        <div className={s.container}>
+          <ThemeContext.Provider value={{ theme, toggleTheme }}>
+            <Sidebar />
+            <Main />
+          </ThemeContext.Provider>
+          <ToastContainer theme="light" />
+          <Footer />
+        </div>
+      </Container>
     </Suspense>
   );
 };

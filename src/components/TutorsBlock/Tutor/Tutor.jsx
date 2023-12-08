@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
 import { ReactComponent as PhoneIcon } from "../../../images/phone.svg";
 import { ReactComponent as MailIcon } from "../../../images/mail.svg";
@@ -13,12 +14,13 @@ const Tutor = ({
   city,
   isFullTime,
 }) => {
+  const { t } = useTranslation();
   return (
     <div className={s.container}>
       <div className={s.name}>
         <p>{lastName}</p>
         <p>{firstName}</p>
-        <p>{gender}</p>
+        <p>{t(gender)}</p>
       </div>
       <div className={s.info}>
         <p className={s.wrapper}>
@@ -31,14 +33,17 @@ const Tutor = ({
         </p>
         <p className={s.wrapper}>
           <LocationIcon className={s.icon} />
-          <span className={s.text}>{city}</span>
+          <span className={s.text}>{t(city)}</span>
         </p>
       </div>
       <div className={s.description}>
         <p>{isFullTime}</p>
-      </div>
-      <div>
-        <p>На постоянной основе: {isFullTime ? "Да" : "Нет"}</p>
+        <div>
+          {t("tutorForm.isFullTime")} :
+          <span style={{ marginLeft: 15 }}>
+            {isFullTime ? t("common.yes") : t("common.no")}
+          </span>
+        </div>
       </div>
     </div>
   );

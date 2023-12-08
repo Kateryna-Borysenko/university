@@ -18,6 +18,6 @@ export const citiesOptions = [
 ];
 
 export const GENDER = {
-  MALE: "male",
-  FEMALE: "female",
+  MALE: "tutorForm.gender-male",
+  FEMALE: "tutorForm.gender-female",
 };

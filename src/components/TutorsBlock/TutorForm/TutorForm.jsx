@@ -111,7 +111,7 @@ const TutorForm = ({ closeForm }) => {
               <input
                 className={s.textField}
                 type="email"
-                placeholder={t("tutorForm.firstName")}
+                placeholder={t("tutorForm.email")}
                 {...register("email")}
               />
               {errors.email && <ErrorMsg message={errors.email.message} />}
