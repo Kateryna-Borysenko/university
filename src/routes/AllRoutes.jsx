@@ -6,9 +6,9 @@ import {
   Location,
   useLocation,
 } from "react-router-dom";
-import Loader from "../components/common/Loader/Loader";
 import Paper from "../components/common/Paper/Paper";
 import { publicRoutes } from "./index";
+import Spinner from "../components/common/Spinner/Spinner";
 
 const DepartmentPage = lazy(
   () =>
@@ -25,7 +25,7 @@ const NotFoundPage = lazy(
 
 const AllRoutes = () => {
   return (
-    <Suspense fallback={<Loader />}>
+    <Suspense fallback={<Spinner />}>
       <Routes>
         <Route path="/" element={<Navigate to="/departments" replace />} />
 

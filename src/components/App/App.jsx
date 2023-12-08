@@ -3,7 +3,7 @@ import { ToastContainer } from "react-toastify";
 import { ThemeContext, themes } from "../../context/themeContext";
 import Sidebar from "../Sidebar/Sidebar";
 import Main from "../Main/Main";
-import Loader from "../common/Loader/Loader";
+import Spinner from "../common/Spinner/Spinner";
 // import Footer from '../Footer/Footer';
 import s from "./App.module.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,7 +17,7 @@ const App = () => {
     );
 
   return (
-    <Suspense fallback={<Loader />}>
+    <Suspense fallback={<Spinner />}>
       <div className={s.container}>
         <ThemeContext.Provider value={{ theme, toggleTheme }}>
           <Sidebar />
