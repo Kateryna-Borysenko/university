@@ -177,7 +177,7 @@ const DepartmentsBlock = () => {
       }
     };
     deleteDepartment();
-  }, [action, activeDepartment]);
+  }, [action, activeDepartment, t]);
 
   const closeModal = () => {
     setOpenedModal(ACTION.NONE);
