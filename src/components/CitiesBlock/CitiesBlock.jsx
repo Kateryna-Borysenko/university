@@ -98,7 +98,7 @@ const CitiesBlock = () => {
       }
     };
     addCity();
-  }, [action, activeCity, dispatch]);
+  }, [action, activeCity, dispatch, t]);
 
   // EDIT CITY
 

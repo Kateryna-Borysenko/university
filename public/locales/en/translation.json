@@ -75,11 +75,18 @@
     "adding-department": "Adding department",
     "department": "Department",
     "success-add": "Department {{name}} has been added!",
-    "success-edit": "Department has been edited!",
-    "success-delete": "Department has been deleted!"
+    "success-edit": "The department has been edited!",
+    "success-delete": "The department has been deleted!",
+    "modal": {
+      "editing-title": "Edit the department information",
+      "deleting-title": "Deleting the departments",
+      "description": "All information about the department will be deleted."
+    }
   },
   "department": {
     "description": "description",
-    "history": "history"
+    "history": "history",
+    "go-back-btn": "Go Back to all departments",
+    "not-found": "The department not found"
   }
 }

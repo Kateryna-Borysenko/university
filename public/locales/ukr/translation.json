@@ -14,15 +14,15 @@
     "edit": "редагувати",
     "delete": "видалити",
     "yes": "Так",
-    "no": "Ні"
+    "no": "Ні",
+    "save": "Зберегти"
   },
   "tutors": {
     "tutors": "Викладачі",
     "no-tutors": "Поки викладача немає",
     "add-tutor": "Додати викладача",
     "adding-tutor": "Додавання викладача",
-    "invite": "Запросити",
-    "save": "Зберегти"
+    "invite": "Запросити"
   },
   "tutorForm": {
     "title": "Добавление преподавателя",
@@ -70,16 +70,23 @@
   },
   "departments": {
     "departments": "Факультети",
-    "no-departments": "Поки немає філій",
+    "no-departments": "Поки немає факультетiв",
     "add-department": "Додати факультет",
-    "adding-department": "Додавання філії",
-    "department": "Філія",
+    "adding-department": "Додавання факультету",
+    "department": "Факультет",
     "success-add": "Факультет {{name}} доданий!",
     "success-edit": "Факультет змінено!",
-    "success-delete": "Факультет видалено!"
+    "success-delete": "Факультет видалено!",
+    "modal": {
+      "editing-title": "Редагувати інформацію про факультет",
+      "deleting-title": "Вилучення факультету",
+      "description": "Буде видаленa інформація про факультет."
+    }
   },
   "department": {
     "description": "опис",
-    "history": "історія"
+    "history": "історія",
+    "go-back-btn": "Назад до всіх факультетів",
+    "not-found": "Факультет не знайдено"
   }
 }

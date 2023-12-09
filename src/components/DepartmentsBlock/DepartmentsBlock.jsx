@@ -80,10 +80,11 @@ const DepartmentsBlock = () => {
           newDepartment,
         ]);
         toggleAddForm();
-        toast.success(`Факультет ${newDepartment.name} успешно добавлен!`);
+        toast.success(
+          `${t("departments.success-add", { name: newDepartment.name })}`,
+        );
       } catch (error) {
         setError(error.message);
-        toast.error("Что-то пошло не так :(");
       } finally {
         setAction(ACTION.NONE);
         setLoading(false);
@@ -91,7 +92,7 @@ const DepartmentsBlock = () => {
       }
     };
     addDepartment();
-  }, [action, activeDepartment]);
+  }, [action, activeDepartment, t]);
 
   // EDIT DEPARTMENT
 
@@ -127,6 +128,7 @@ const DepartmentsBlock = () => {
               : department,
           ),
         );
+        toast.success(t("departments.success-edit"));
       } catch (error) {
         setError(error.message);
       } finally {
@@ -137,7 +139,7 @@ const DepartmentsBlock = () => {
       }
     };
     editDepartment();
-  }, [action, activeDepartment]);
+  }, [action, activeDepartment, t]);
 
   // DELETE DEPARTMENT
 
@@ -164,6 +166,7 @@ const DepartmentsBlock = () => {
             (department) => department.id !== deletedDepartment.id,
           ),
         );
+        toast.success(t("departments.success-delete"));
       } catch (error) {
         setError(error.message);
       } finally {
@@ -204,8 +207,8 @@ const DepartmentsBlock = () => {
       {isAddFormOpen && (
         <AddForm
           onSubmit={confirmAdd}
-          formName="Добавление филиала"
-          placeholder="Филиал"
+          formName={t("departments.adding-department")}
+          placeholder={t("departments.department")}
         />
       )}
 
@@ -224,7 +227,7 @@ const DepartmentsBlock = () => {
 
       {openedModal === ACTION.EDIT && (
         <Modal
-          title="Редактировать информацию о факультете"
+          title={t("departments.modal.editing-title")}
           onClose={closeModal}
           icon={pencilIcon}
         >
@@ -238,12 +241,12 @@ const DepartmentsBlock = () => {
 
       {openedModal === ACTION.DELETE && (
         <Modal
-          title="Удаление факультета"
+          title={t("departments.modal.deleting-title")}
           onClose={closeModal}
           icon={fingerIcon}
         >
           <DeleteCard
-            text="Будут удалены все материалы и информация о факультете."
+            text={t("departments.modal.description")}
             onDelete={confirmDelete}
             onClose={closeModal}
           />
