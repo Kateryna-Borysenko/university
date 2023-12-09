@@ -8,41 +8,25 @@ import Skeleton from "../common/Skeleton/Skeleton";
 import Paper from "../common/Paper/Paper";
 import Tutor from "./Tutor/Tutor";
 import TutorForm from "./TutorForm/TutorForm";
-import * as api from "../../services/api";
-import { setTutors } from "../../redux/tutors/tutorsActions";
 import plusImg from "../../images/add.svg";
 import s from "./TutorsBlock.module.css";
 
-const API_ENDPOINT = "tutors";
+import { getTutors } from "../../redux/tutors/tutorsOperations";
 
 const TutorsBlock = () => {
   const { t } = useTranslation();
-  const tutors = useSelector((state) => state.tutors);
+
+  const tutors = useSelector((state) => state.tutors.items);
+  const loading = useSelector((state) => state.tutors.loading);
+  const error = useSelector((state) => state.tutors.error);
   const dispatch = useDispatch();
 
   const [isFormOpen, setIsFormOpen] = useState(false);
 
-  const [firstLoading, setFirstLoading] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
   // FETCH TUTORS
 
   useEffect(() => {
-    const fetchTutors = async () => {
-      setFirstLoading(true);
-      setLoading(true);
-      try {
-        const tutors = await api.getData(API_ENDPOINT);
-        dispatch(setTutors(tutors));
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setFirstLoading(false);
-        setLoading(false);
-      }
-    };
-    fetchTutors();
+    dispatch(getTutors());
   }, [dispatch]);
 
   const toggleForm = useCallback(
@@ -50,11 +34,11 @@ const TutorsBlock = () => {
     [],
   );
 
-  const noTutors = !firstLoading && !tutors.length;
+  const noTutors = !loading && !tutors.length;
 
   return (
     <>
-      {firstLoading && <Skeleton />}
+      {loading && <Skeleton />}
 
       {loading && <Loader />}
 

@@ -1,16 +1,45 @@
-import TYPES from "./tutorsTypes";
+import { createReducer, combineReducers } from "@reduxjs/toolkit";
+import {
+  getTutorsRequest,
+  getTutorsSuccess,
+  getTutorsError,
+  addTutorRequest,
+  addTutorSuccess,
+  addTutorError,
+} from "./tutorsActions";
 
-const tutorsReducer = (state = [], action) => {
-  switch (action.type) {
-    case TYPES.SET:
-      return action.payload;
+const itemsReducer = createReducer([], (builder) => {
+  builder.addCase(getTutorsSuccess, (_, action) => action.payload);
+  builder.addCase(addTutorSuccess, (state, action) => [
+    ...state,
+    action.payload,
+  ]);
+});
 
-    case TYPES.ADD:
-      return [...state, action.payload];
+const loadingReducer = createReducer(false, (builder) => {
+  builder
+    .addCase(getTutorsRequest, () => true)
+    .addCase(getTutorsSuccess, () => false)
+    .addCase(getTutorsError, () => false)
 
-    default:
-      return state;
-  }
-};
+    .addCase(addTutorRequest, () => true)
+    .addCase(addTutorSuccess, () => false)
+    .addCase(addTutorError, () => false);
+});
+
+const errorReducer = createReducer(null, (builder) => {
+  builder
+    .addCase(getTutorsRequest, () => null)
+    .addCase(getTutorsError, (_, { payload }) => payload)
+
+    .addCase(addTutorRequest, () => null)
+    .addCase(addTutorError, (_, { payload }) => payload);
+});
+
+const tutorsReducer = combineReducers({
+  items: itemsReducer,
+  loading: loadingReducer,
+  error: errorReducer,
+});
 
 export default tutorsReducer;
