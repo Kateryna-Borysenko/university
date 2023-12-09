@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { createLogger } from "redux-logger";
 import {
   persistStore,
   persistReducer,
@@ -12,18 +11,8 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import tutorsReducer from "./tutors/tutorReducer";
-import citiesReducer from "./cities/citiesReducer";
+import citiesReducer from "./cities/citiesSlice";
 import { customMiddlewareLogger } from "./customMiddlewareLogger";
-
-//structure
-// {
-//   tutors: [],
-//   cities: {
-//     items: [],
-//     filter: '',
-//   },
-//   departments: [],
-// }
 
 const persistCitiesConfig = {
   key: "filter",

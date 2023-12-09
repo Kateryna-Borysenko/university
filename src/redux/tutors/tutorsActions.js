@@ -1,13 +1,18 @@
-import TYPES from "./tutorsTypes";
+import { createAction } from "@reduxjs/toolkit";
 
-const setTutors = (tutors) => ({
-  type: TYPES.SET,
-  payload: tutors,
-});
+const getTutorsRequest = createAction("tutors/getTutorsRequest");
+const getTutorsSuccess = createAction("tutors/getTutorsSuccess");
+const getTutorsError = createAction("tutors/getTutorsError");
 
-const addTutor = (tutor) => ({
-  type: TYPES.ADD,
-  payload: tutor,
-});
+const addTutorRequest = createAction("tutors/addTutorRequest");
+const addTutorSuccess = createAction("tutors/addTutorSuccess");
+const addTutorError = createAction("tutors/addTutorError");
 
-export { setTutors, addTutor };
+export {
+  getTutorsRequest,
+  getTutorsSuccess,
+  getTutorsError,
+  addTutorRequest,
+  addTutorSuccess,
+  addTutorError,
+};

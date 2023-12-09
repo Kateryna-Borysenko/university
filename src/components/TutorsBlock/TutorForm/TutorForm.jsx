@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import BigButton from "../../common/BigButton/BigButton";
@@ -11,22 +11,18 @@ import Loader from "../../common/Loader/Loader";
 import ErrorMsg from "../../common/ErrorMsg/ErrorMsg";
 import { GENDER } from "./formData";
 import { citiesOptions } from "./formData";
-import { addTutor } from "../../../redux/tutors/tutorsActions";
+import { addTutor } from "../../../redux/tutors/tutorsOperations";
 import { validationSchema } from "./validationSchema";
-import * as api from "../../../services/api";
 import s from "./TutorForm.module.css";
-
-const API_ENDPOINT = "tutors";
 
 const TutorForm = ({ closeForm }) => {
   const { t } = useTranslation();
 
+  const loading = useSelector((state) => state.tutors.loading);
+  const error = useSelector((state) => state.tutors.error);
   const dispatch = useDispatch();
 
   const [newTutor, setNewTutor] = useState(null);
-  // api request status
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const { register, handleSubmit, formState, reset } = useForm({
     resolver: yupResolver(validationSchema),
@@ -43,33 +39,14 @@ const TutorForm = ({ closeForm }) => {
   useEffect(() => {
     if (!newTutor) return;
 
-    let isTutorsMounted = true;
-    const handleAddTutor = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const savedTutor = await api.saveItem(API_ENDPOINT, newTutor);
-        if (isTutorsMounted) {
-          dispatch(addTutor(savedTutor));
-          toast.success(t("tutorForm.success-add"));
-        }
-      } catch (error) {
-        if (isTutorsMounted) {
-          setError(error.message);
-        }
-      } finally {
-        if (isTutorsMounted) {
-          setLoading(false);
-          setNewTutor(null);
-          closeForm();
-        }
-      }
+    const addNewTutor = async () => {
+      await dispatch(addTutor(newTutor));
+      toast.success(t("tutorForm.success-add"));
+      setNewTutor(null);
+      closeForm();
     };
-    handleAddTutor();
 
-    return () => {
-      isTutorsMounted = false;
-    };
+    addNewTutor();
   }, [closeForm, dispatch, newTutor, t]);
 
   return (
