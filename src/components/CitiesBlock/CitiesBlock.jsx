@@ -11,8 +11,7 @@ import EditCard from "../common/EditCard/EditCard";
 import AddForm from "../common/AddForm/AddForm";
 import Filter from "./Filter/Filter";
 import DeleteCard from "../common/DeleteCard/DeleteCard";
-import * as api from "../../services/api";
-import * as actions from "../../redux/cities/citiesActions";
+import { citiesActions, citiesOperations } from "../../redux/cities";
 import addIcon from "../../images/add.svg";
 import pencilIcon from "../../images/pencil.png";
 import fingerIcon from "../../images/finger.png";
@@ -26,12 +25,15 @@ const ACTION = {
   DELETE: "delete",
 };
 
+const { getCities, addCity, editCity, deleteCity } = citiesOperations;
+
 const CitiesBlock = () => {
   const { t } = useTranslation();
 
-  const cities = useSelector((state) => state.cities.items);
+  const cities = useSelector((state) => state.cities.data.items);
   const filter = useSelector((state) => state.cities.filter);
-
+  const loading = useSelector((state) => state.cities.data.loading);
+  const error = useSelector((state) => state.cities.data.error);
   const dispatch = useDispatch();
 
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
@@ -40,25 +42,10 @@ const CitiesBlock = () => {
   const [action, setAction] = useState(ACTION.NONE);
   const [activeCity, setActiveCity] = useState(null);
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
   // GET CITIES
 
   useEffect(() => {
-    const fetchCities = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const apiCities = await api.getData(API_ENDPOINT);
-        dispatch(actions.setCities(apiCities));
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCities();
+    dispatch(getCities());
   }, [dispatch]);
 
   // ADD CITY
@@ -81,23 +68,12 @@ const CitiesBlock = () => {
   useEffect(() => {
     if (action !== ACTION.ADD || !activeCity) return;
 
-    const addCity = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const newCity = await api.saveItem(API_ENDPOINT, activeCity);
-        dispatch(actions.addCity(newCity));
-        toggleAddForm();
-        toast.success(`${t("cities.success-add", { name: newCity.name })}`);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setAction(ACTION.NONE);
-        setActiveCity(null);
-        setLoading(false);
-      }
-    };
-    addCity();
+    dispatch(addCity(activeCity)).then(() => {
+      toast.success(`${t("cities.success-add", { name: activeCity.name })}`);
+      toggleAddForm();
+      setAction(ACTION.NONE);
+      setActiveCity(null);
+    });
   }, [action, activeCity, dispatch, t]);
 
   // EDIT CITY
@@ -119,23 +95,12 @@ const CitiesBlock = () => {
   useEffect(() => {
     if (action !== ACTION.EDIT) return;
 
-    const editCity = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const updatedCity = await api.editItem(API_ENDPOINT, activeCity);
-        dispatch(actions.editCity(updatedCity));
-        toast.success(t("cities.success-edit"));
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setAction(ACTION.NONE);
-        closeModal();
-        setLoading(false);
-        setActiveCity(null);
-      }
-    };
-    editCity();
+    dispatch(editCity(activeCity)).then(() => {
+      toast.success(t("cities.success-edit"));
+      setAction(ACTION.NONE);
+      closeModal();
+      setActiveCity(null);
+    });
   }, [action, activeCity, dispatch, t]);
 
   // DELETE CITY
@@ -150,24 +115,13 @@ const CitiesBlock = () => {
   useEffect(() => {
     if (action !== ACTION.DELETE) return;
 
-    const deleteCity = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const deletedCity = await api.deleteItem(API_ENDPOINT, activeCity.id);
-        dispatch(actions.deleteCity(deletedCity.id));
-        toast.success(t("cities.success-delete"));
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setAction(ACTION.NONE);
-        closeModal();
-        setLoading(false);
-        setActiveCity(null);
-      }
-    };
-    deleteCity();
-  }, [action, activeCity, dispatch]);
+    dispatch(deleteCity(activeCity.id)).then(() => {
+      toast.success(t("cities.success-delete"));
+      setAction(ACTION.NONE);
+      closeModal();
+      setActiveCity(null);
+    });
+  }, [action, activeCity, dispatch, t]);
 
   const closeModal = () => {
     setOpenedModal(ACTION.NONE);
@@ -188,7 +142,7 @@ const CitiesBlock = () => {
 
   useEffect(() => {
     if (cities.length === 1) {
-      dispatch(actions.changeFilter(""));
+      dispatch(citiesActions.changeFilter(""));
     }
   }, [cities.length, dispatch]);
 
