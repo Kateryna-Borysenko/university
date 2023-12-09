@@ -5,7 +5,6 @@ import { ThemeContext, themes } from "../../../context/themeContext";
 import { changeFilter } from "../../../redux/cities/citiesActions";
 import s from "./Filter.module.css";
 
-//TODO: реализовать подсветку и фокус на инпуте
 const Filter = ({ label = "" }) => {
   const filter = useSelector((state) => state.cities.filter);
   const dispatch = useDispatch();

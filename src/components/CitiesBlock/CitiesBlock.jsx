@@ -31,6 +31,7 @@ const CitiesBlock = () => {
 
   const cities = useSelector((state) => state.cities.items);
   const filter = useSelector((state) => state.cities.filter);
+
   const dispatch = useDispatch();
 
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
@@ -199,6 +200,7 @@ const CitiesBlock = () => {
           items={filteredCities}
           onEditItem={handleStartEdit}
           onDeleteItem={handleStartDelete}
+          filter={filter}
         />
       )}
 

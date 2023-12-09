@@ -58,7 +58,7 @@ const CardWithMenu = ({ text, onEdit, onDelete }) => {
 };
 
 CardWithMenu.propTypes = {
-  text: PropTypes.string.isRequired,
+  text: PropTypes.object.isRequired,
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
