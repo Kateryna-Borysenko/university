@@ -7,6 +7,9 @@ import s from "./ItemsList.module.css";
 const ItemsList = ({ items, onEditItem, onDeleteItem, filter }) => {
   const highlightMatches = useCallback(
     (text) => {
+      if (!filter) {
+        return <span>{text}</span>;
+      }
       const parts = text.split(new RegExp(`(${filter})`, "gi"));
       return (
         <span>
