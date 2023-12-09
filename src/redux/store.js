@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { createLogger } from "redux-logger";
 import {
   persistStore,
   persistReducer,
@@ -13,6 +12,7 @@ import {
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import tutorsReducer from "./tutors/tutorReducer";
 import citiesReducer from "./cities/citiesReducer";
+import { customMiddlewareLogger } from "./customMiddlewareLogger";
 
 //structure
 // {
@@ -30,11 +30,6 @@ const persistCitiesConfig = {
   whitelist: ["filter"],
 };
 
-const logger = createLogger({
-  collapsed: (getState, action, logEntry) => !logEntry.error,
-  timestamp: false,
-});
-
 const store = configureStore({
   reducer: {
     tutors: tutorsReducer,
@@ -46,7 +41,7 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(logger),
+    }).concat(customMiddlewareLogger),
   devTools: process.env.NODE_ENV !== "production",
 });
 
