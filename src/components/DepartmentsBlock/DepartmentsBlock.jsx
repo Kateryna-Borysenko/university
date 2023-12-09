@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import BigButton from "../common/BigButton/BigButton";
@@ -23,6 +24,8 @@ const ACTION = {
 };
 
 const DepartmentsBlock = () => {
+  const { t } = useTranslation();
+
   const [departments, setDepartments] = useState([]);
   // form / modal
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
@@ -77,10 +80,11 @@ const DepartmentsBlock = () => {
           newDepartment,
         ]);
         toggleAddForm();
-        toast.success(`Факультет ${newDepartment.name} успешно добавлен!`);
+        toast.success(
+          `${t("departments.success-add", { name: newDepartment.name })}`,
+        );
       } catch (error) {
         setError(error.message);
-        toast.error("Что-то пошло не так :(");
       } finally {
         setAction(ACTION.NONE);
         setLoading(false);
@@ -88,7 +92,7 @@ const DepartmentsBlock = () => {
       }
     };
     addDepartment();
-  }, [action, activeDepartment]);
+  }, [action, activeDepartment, t]);
 
   // EDIT DEPARTMENT
 
@@ -124,6 +128,7 @@ const DepartmentsBlock = () => {
               : department,
           ),
         );
+        toast.success(t("departments.success-edit"));
       } catch (error) {
         setError(error.message);
       } finally {
@@ -134,7 +139,7 @@ const DepartmentsBlock = () => {
       }
     };
     editDepartment();
-  }, [action, activeDepartment]);
+  }, [action, activeDepartment, t]);
 
   // DELETE DEPARTMENT
 
@@ -161,6 +166,7 @@ const DepartmentsBlock = () => {
             (department) => department.id !== deletedDepartment.id,
           ),
         );
+        toast.success(t("departments.success-delete"));
       } catch (error) {
         setError(error.message);
       } finally {
@@ -194,20 +200,26 @@ const DepartmentsBlock = () => {
         />
       )}
 
-      {noDepartments && <h4 className="absence-msg">No departments yet</h4>}
+      {noDepartments && (
+        <h4 className="absence-msg">{t("departments.no-departments")}</h4>
+      )}
 
       {isAddFormOpen && (
         <AddForm
           onSubmit={confirmAdd}
-          formName="Добавление филиала"
-          placeholder="Филиал"
+          formName={t("departments.adding-department")}
+          placeholder={t("departments.department")}
         />
       )}
 
       {error && <ErrorMsg message={error} />}
 
       <BigButton
-        text={isAddFormOpen ? "Отменить добавление" : "Добавить факультет"}
+        text={
+          isAddFormOpen
+            ? t("common.cancel-add")
+            : t("departments.add-department")
+        }
         icon={!isAddFormOpen && addIcon}
         onClick={toggleAddForm}
         disabled={loading}
@@ -215,7 +227,7 @@ const DepartmentsBlock = () => {
 
       {openedModal === ACTION.EDIT && (
         <Modal
-          title="Редактировать информацию о факультете"
+          title={t("departments.modal.editing-title")}
           onClose={closeModal}
           icon={pencilIcon}
         >
@@ -229,12 +241,12 @@ const DepartmentsBlock = () => {
 
       {openedModal === ACTION.DELETE && (
         <Modal
-          title="Удаление факультета"
+          title={t("departments.modal.deleting-title")}
           onClose={closeModal}
           icon={fingerIcon}
         >
           <DeleteCard
-            text="Будут удалены все материалы и информация о факультете."
+            text={t("departments.modal.description")}
             onDelete={confirmDelete}
             onClose={closeModal}
           />

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import {
@@ -15,6 +16,8 @@ import s from "./DepartmentPage.module.css";
 const API_ENDPOINT = "departments";
 
 const DepartmentPage = () => {
+  const { t } = useTranslation();
+
   const [department, setDepartment] = useState({});
   const location = useLocation();
   const params = useParams();
@@ -26,12 +29,12 @@ const DepartmentPage = () => {
         .getData(`${API_ENDPOINT}/${params.id}`)
         .then(setDepartment)
         .catch((err) => {
-          toast.error("Факультет не найден");
+          toast.error(t("department.not-found"));
           navigate(location.state?.from ?? "/departments");
         });
     };
     fetchDepartment();
-  }, [location.state?.from, navigate, params.id]);
+  }, [location.state?.from, navigate, params.id, t]);
 
   const handleGoBack = () => {
     navigate(location.state?.from ?? "/departments");
@@ -39,10 +42,10 @@ const DepartmentPage = () => {
 
   return (
     <>
-      <Header title={department.name ?? "Факультет"} />
+      <Header title={department.name ?? t("departments.department")} />
       <div className={s.wrapper}>
         <BigButton
-          text={location.state?.label ?? "Назад ко всем факультетам"}
+          text={location.state?.label ?? t("department.go-back-btn")}
           onClick={handleGoBack}
           isGray
         />
@@ -62,7 +65,7 @@ const DepartmentPage = () => {
               label: location.state?.label,
             }}
           >
-            Описание
+            {t("department.description")}
           </NavLink>
         </div>
         <div>
@@ -74,7 +77,7 @@ const DepartmentPage = () => {
               label: location.state?.label,
             }}
           >
-            История
+            {t("department.history")}
           </NavLink>
         </div>
       </nav>

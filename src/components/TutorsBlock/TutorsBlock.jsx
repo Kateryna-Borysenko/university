@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import BigButton from "../common/BigButton/BigButton";
@@ -15,6 +16,7 @@ import s from "./TutorsBlock.module.css";
 const API_ENDPOINT = "tutors";
 
 const TutorsBlock = () => {
+  const { t } = useTranslation();
   const tutors = useSelector((state) => state.tutors);
   const dispatch = useDispatch();
 
@@ -56,7 +58,7 @@ const TutorsBlock = () => {
 
       {loading && <Loader />}
 
-      {noTutors && <h4 className={s.noTutors}>No tutors yet</h4>}
+      {noTutors && <h4 className="absence-msg">{t("tutors.no-tutors")}</h4>}
 
       {!!tutors.length && (
         <div className={s.container}>
@@ -77,7 +79,7 @@ const TutorsBlock = () => {
           <BigButton
             onClick={toggleForm}
             icon={!isFormOpen && plusImg}
-            text={isFormOpen ? "Отменить добавление" : "Добавить преподавателя"}
+            text={isFormOpen ? t("common.cancel-add") : t("tutors.add-tutor")}
             disabled={loading}
           />
         </div>

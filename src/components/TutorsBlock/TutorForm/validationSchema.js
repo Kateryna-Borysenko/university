@@ -19,25 +19,25 @@ export const validationSchema = yup
   .object({
     firstName: yup
       .string()
-      .min(2, "В имени должно быть минимум 2 буквы")
-      .max(15, "В имени должно быть максимум 15 букв")
-      .required("Обязательное поле"),
+      .min(2, "tutorForm.validationSchema.firstNameMin")
+      .max(15, "tutorForm.validationSchema.firstNameMax")
+      .required("tutorForm.validationSchema.required"),
     lastName: yup
       .string()
-      .min(2, "В фамилии должно быть минимум 2 буквы")
-      .max(20, "В фамилии должно быть максимум 20 букв")
-      .required("Обязательное поле"),
+      .min(2, "tutorForm.validationSchema.lastNameMin")
+      .max(20, "tutorForm.validationSchema.lastNameMax")
+      .required("tutorForm.validationSchema.required"),
     phone: yup
       .string()
-      .matches(phoneRegExp, "Неверный номер телефона")
-      .required("Обязательное поле"),
+      .matches(phoneRegExp, "tutorForm.validationSchema.phone")
+      .required("tutorForm.validationSchema.required"),
     email: yup
       .string()
-      .email("Неверный email")
-      .required("Обязательное поле")
+      .email("tutorForm.validationSchema.email")
+      .required("tutorForm.validationSchema.required")
       .test(
         "unique-email",
-        "Этот email уже используется",
+        "tutorForm.validationSchema.unique-email",
         async function (value) {
           try {
             const isEmailExists = await checkEmailExists(value);
@@ -48,7 +48,10 @@ export const validationSchema = yup
           }
         },
       ),
-    city: yup.string().required("Обязательное поле"),
-    gender: yup.string().nullable().required("Обязательное поле"),
+    city: yup.string().required("tutorForm.validationSchema.required"),
+    gender: yup
+      .string()
+      .nullable()
+      .required("tutorForm.validationSchema.required"),
   })
   .required();

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
@@ -26,8 +27,11 @@ const ACTION = {
 };
 
 const CitiesBlock = () => {
+  const { t } = useTranslation();
+
   const cities = useSelector((state) => state.cities.items);
   const filter = useSelector((state) => state.cities.filter);
+
   const dispatch = useDispatch();
 
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
@@ -84,6 +88,7 @@ const CitiesBlock = () => {
         const newCity = await api.saveItem(API_ENDPOINT, activeCity);
         dispatch(actions.addCity(newCity));
         toggleAddForm();
+        toast.success(`${t("cities.success-add", { name: newCity.name })}`);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -93,7 +98,7 @@ const CitiesBlock = () => {
       }
     };
     addCity();
-  }, [action, activeCity, dispatch]);
+  }, [action, activeCity, dispatch, t]);
 
   // EDIT CITY
 
@@ -120,6 +125,7 @@ const CitiesBlock = () => {
       try {
         const updatedCity = await api.editItem(API_ENDPOINT, activeCity);
         dispatch(actions.editCity(updatedCity));
+        toast.success(t("cities.success-edit"));
       } catch (error) {
         setError(error.message);
       } finally {
@@ -130,7 +136,7 @@ const CitiesBlock = () => {
       }
     };
     editCity();
-  }, [action, activeCity, dispatch]);
+  }, [action, activeCity, dispatch, t]);
 
   // DELETE CITY
 
@@ -150,6 +156,7 @@ const CitiesBlock = () => {
       try {
         const deletedCity = await api.deleteItem(API_ENDPOINT, activeCity.id);
         dispatch(actions.deleteCity(deletedCity.id));
+        toast.success(t("cities.success-delete"));
       } catch (error) {
         setError(error.message);
       } finally {
@@ -189,30 +196,31 @@ const CitiesBlock = () => {
     <>
       {loading && <Loader />}
 
-      {cities.length > 1 && <Filter label="Поиск города:" />}
+      {cities.length > 1 && <Filter label={t("cities.city-filter")} />}
 
       {!!filteredCities.length && (
         <ItemsList
           items={filteredCities}
           onEditItem={handleStartEdit}
           onDeleteItem={handleStartDelete}
+          filter={filter}
         />
       )}
 
-      {noCities && <h4 className="absence-msg">No cities yet</h4>}
+      {noCities && <h4 className="absence-msg">{t("cities.no-cities")}</h4>}
 
       {isAddFormOpen && (
         <AddForm
           onSubmit={confirmAdd}
-          formName="Добавление города"
-          placeholder="Город"
+          formName={t("cities.add-city")}
+          placeholder={t("cities.city")}
         />
       )}
 
       {error && <ErrorMsg message={error} />}
 
       <BigButton
-        text={isAddFormOpen ? "Отменить добавление" : "Добавить город"}
+        text={isAddFormOpen ? t("common.cancel-add") : t("cities.add-city")}
         icon={!isAddFormOpen && addIcon}
         onClick={toggleAddForm}
         disabled={loading}
@@ -220,12 +228,12 @@ const CitiesBlock = () => {
 
       {openedModal === ACTION.EDIT && (
         <Modal
-          title="Редактировать информацию о городе"
+          title={t("cities.modal.editing-title")}
           onClose={closeModal}
           icon={pencilIcon}
         >
           <EditCard
-            label="Город"
+            label={t("cities.city")}
             inputValue={activeCity.name}
             onSave={confirmEdit}
           />
@@ -233,9 +241,13 @@ const CitiesBlock = () => {
       )}
 
       {openedModal === ACTION.DELETE && (
-        <Modal title="Удаление города" onClose={closeModal} icon={fingerIcon}>
+        <Modal
+          title={t("cities.modal.deleting-title")}
+          onClose={closeModal}
+          icon={fingerIcon}
+        >
           <DeleteCard
-            text="Будут удалены все материалы и информация о городе."
+            text={t("cities.modal.description")}
             onDelete={confirmDelete}
             onClose={closeModal}
           />

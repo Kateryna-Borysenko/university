@@ -1,0 +1,92 @@
+{
+  "sidebar": {
+    "university": "Univercity",
+    "departments": "Departments"
+  },
+  "university": {
+    "info": "University information",
+    "word": "university",
+    "description": "Experience, concentration of knowledge and the ability to avoid most of the mistakes when hiring. We know what most local and foreign companies want and we can give it to you. And we are constantly improving our programming courses, adding something new there. You can personally read the success stories of our graduates to be convinced of the effectiveness of our teaching methodology. Yes, we will start with the basics and the simplest information. We know that most people come to us with zero knowledge."
+  },
+  "common": {
+    "add": "add",
+    "cancel-add": "Cancel adding",
+    "edit": "edit",
+    "delete": "delete",
+    "yes": "yes",
+    "no": "no",
+    "save": "Save"
+  },
+  "tutors": {
+    "tutors": "Tutors",
+    "no-tutors": "No tutors yet",
+    "add-tutor": "Add tutor",
+    "adding-tutor": "Adding tutor",
+    "invite": "Invite"
+  },
+  "tutorForm": {
+    "title": "Adding a tutor",
+    "success-add": "The tutor has been added!",
+    "lastName": "Last Name *",
+    "firstName": "First Name *",
+    "phone": "Phone *",
+    "email": "Email *",
+    "cities": {
+      "label": "Select city *",
+      "kyiv": "Kyiv",
+      "lviv": "Lviv",
+      "kharkiv": "Kharkiv"
+    },
+    "gender": "Gender *",
+    "gender-male": "Male",
+    "gender-female": "Female",
+    "isFullTime": "Is full time",
+    "validationSchema": {
+      "required": "Required field",
+      "firstNameMin": "The name must contain at least 2 letters",
+      "firstNameMax": "The name must contain a maximum of 15 letters",
+      "lastNameMin": "The last name must contain at least 2 letters",
+      "lastNameMax": "The last name must contain a maximum of 20 letters",
+      "phone": "Invalid phone number",
+      "email": "Invalid email",
+      "unique-email": "This email is already exist"
+    }
+  },
+  "cities": {
+    "cities": "Cities",
+    "no-cities": "No cities yet",
+    "city-filter": "Filter cities",
+    "add-city": "Add city",
+    "adding-city": "Adding city",
+    "city": "City",
+    "success-add": "City {{name}} has been added!",
+    "success-edit": "City has been edited!",
+    "success-delete": "City has been deleted!",
+    "modal": {
+      "editing-title": "Edit city information",
+      "deleting-title": "Deleting a city",
+      "description": "All information about the city will be deleted."
+    }
+  },
+  "departments": {
+    "departments": "Departments",
+    "no-departments": "No departments yet",
+    "add-department": "Add department",
+    "adding-department": "Adding department",
+    "department": "Department",
+    "success-add": "Department {{name}} has been added!",
+    "success-edit": "The department has been edited!",
+    "success-delete": "The department has been deleted!",
+    "modal": {
+      "editing-title": "Edit the department information",
+      "deleting-title": "Deleting the departments",
+      "description": "All information about the department will be deleted."
+    }
+  },
+  "department": {
+    "description": "description",
+    "history": "history",
+    "go-back-btn": "Go Back to all departments",
+    "not-found": "The department not found"
+  }
+}

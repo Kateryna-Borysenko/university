@@ -1,19 +1,23 @@
 export const citiesOptions = [
   {
-    label: "Выберите город*",
+    label: "tutorForm.cities.label",
     value: "",
   },
   {
-    label: "Полтава",
-    value: "Полтава",
+    label: "tutorForm.cities.kyiv",
+    value: "tutorForm.cities.kyiv",
   },
   {
-    label: "Киев",
-    value: "Киев",
+    label: "tutorForm.cities.lviv",
+    value: "tutorForm.cities.lviv",
+  },
+  {
+    label: "tutorForm.cities.kharkiv",
+    value: "tutorForm.cities.kharkiv",
   },
 ];
 
 export const GENDER = {
-  MALE: "male",
-  FEMALE: "female",
+  MALE: "tutorForm.gender-male",
+  FEMALE: "tutorForm.gender-female",
 };

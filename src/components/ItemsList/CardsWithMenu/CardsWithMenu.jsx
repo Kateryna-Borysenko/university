@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import useOutsideClickDetector from "../../../hooks/useOutsideClickDetector";
@@ -7,6 +8,8 @@ import deleteIcon from "../../../images/delete.svg";
 import s from "./CardsWithMenu.module.css";
 
 const CardWithMenu = ({ text, onEdit, onDelete }) => {
+  const { t } = useTranslation();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const cardRef = useRef(null);
@@ -43,13 +46,13 @@ const CardWithMenu = ({ text, onEdit, onDelete }) => {
             <span>
               <img className={s.icon} src={editIcon} alt="Edit" />
             </span>
-            <span>редактировать</span>
+            <span>{t("common.edit")}</span>
           </div>
           <div className={s.menu_item} onClick={handleDelete}>
             <span>
               <img className={s.icon} src={deleteIcon} alt="Delete" />
             </span>
-            <span>удалить</span>
+            <span>{t("common.delete")}</span>
           </div>
         </div>
       )}
@@ -58,7 +61,7 @@ const CardWithMenu = ({ text, onEdit, onDelete }) => {
 };
 
 CardWithMenu.propTypes = {
-  text: PropTypes.string.isRequired,
+  text: PropTypes.object.isRequired,
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 };

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
 import univerBuildingImg from "../../../images/building.png";
 import { ReactComponent as EditIcon } from "../../../images/edit.svg";
@@ -5,12 +6,13 @@ import { ReactComponent as DeleteIcon } from "../../../images/delete.svg";
 import s from "./Card.module.css";
 
 const Card = ({ name }) => {
+  const { t } = useTranslation();
   return (
     <div className={s.card}>
       <div className={s.img_wrapper}>
         <img src={univerBuildingImg} alt="University" />
       </div>
-      <p className={s.text}>университет</p>
+      <p className={s.text}>{t("university.word")}</p>
       <h3 className={`heading ${s.wrapper}`}>{name}</h3>
       <div className={s.btn_container}>
         <button className={s.button} aria-label="Edit">
