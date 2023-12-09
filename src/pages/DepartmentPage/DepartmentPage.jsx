@@ -1,19 +1,19 @@
-import { useTranslation } from "react-i18next";
-import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
+import { useTranslation } from 'react-i18next';
+import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import {
   useParams,
   NavLink,
   useLocation,
   Outlet,
   useNavigate,
-} from "react-router-dom";
-import BigButton from "../../components/common/BigButton/BigButton";
-import Header from "../../components/Header/Header";
-import * as api from "../../services/api";
-import s from "./DepartmentPage.module.css";
+} from 'react-router-dom';
+import BigButton from '../../components/common/BigButton/BigButton';
+import Header from '../../components/Header/Header';
+import * as api from '../../services/api';
+import s from './DepartmentPage.module.css';
 
-const API_ENDPOINT = "departments";
+const API_ENDPOINT = 'departments';
 
 const DepartmentPage = () => {
   const { t } = useTranslation();
@@ -28,24 +28,24 @@ const DepartmentPage = () => {
       api
         .getData(`${API_ENDPOINT}/${params.id}`)
         .then(setDepartment)
-        .catch((err) => {
-          toast.error(t("department.not-found"));
-          navigate(location.state?.from ?? "/departments");
+        .catch(err => {
+          toast.error(t('department.not-found'));
+          navigate(location.state?.from ?? '/departments');
         });
     };
     fetchDepartment();
   }, [location.state?.from, navigate, params.id, t]);
 
   const handleGoBack = () => {
-    navigate(location.state?.from ?? "/departments");
+    navigate(location.state?.from ?? '/departments');
   };
 
   return (
     <>
-      <Header title={department.name ?? t("departments.department")} />
+      <Header title={department.name ?? t('departments.department')} />
       <div className={s.wrapper}>
         <BigButton
-          text={location.state?.label ?? t("department.go-back-btn")}
+          text={location.state?.label ?? t('department.go-back-btn')}
           onClick={handleGoBack}
           isGray
         />
@@ -65,7 +65,7 @@ const DepartmentPage = () => {
               label: location.state?.label,
             }}
           >
-            {t("department.description")}
+            {t('department.description')}
           </NavLink>
         </div>
         <div>
@@ -77,7 +77,7 @@ const DepartmentPage = () => {
               label: location.state?.label,
             }}
           >
-            {t("department.history")}
+            {t('department.history')}
           </NavLink>
         </div>
       </nav>

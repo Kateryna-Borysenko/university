@@ -1,7 +1,7 @@
-import { useTranslation } from "react-i18next";
-import PropTypes from "prop-types";
-import NavItem from "./NavItem/NavItem";
-import s from "./Navigation.module.css";
+import { useTranslation } from 'react-i18next';
+import PropTypes from 'prop-types';
+import NavItem from './NavItem/NavItem';
+import s from './Navigation.module.css';
 
 const Navigation = ({ navConfig }) => {
   const { t } = useTranslation();

@@ -1,39 +1,39 @@
-import { useTranslation } from "react-i18next";
-import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
-import BigButton from "../common/BigButton/BigButton";
-import ItemsList from "../ItemsList/ItemsList";
-import AddForm from "../common/AddForm/AddForm";
-import DeleteCard from "../common/DeleteCard/DeleteCard";
-import EditCard from "../common/EditCard/EditCard";
-import ErrorMsg from "../common/ErrorMsg/ErrorMsg";
-import Loader from "../common/Loader/Loader";
-import Modal from "../common/Modal/Modal";
-import * as api from "../../services/api";
-import addIcon from "../../images/add.svg";
-import pencilIcon from "../../images/pencil.png";
-import fingerIcon from "../../images/finger.png";
+import { useTranslation } from 'react-i18next';
+import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
+import BigButton from '../common/BigButton/BigButton';
+import ItemsList from '../ItemsList/ItemsList';
+import AddForm from '../common/AddForm/AddForm';
+import DeleteCard from '../common/DeleteCard/DeleteCard';
+import EditCard from '../common/EditCard/EditCard';
+import ErrorMsg from '../common/ErrorMsg/ErrorMsg';
+import Loader from '../common/Loader/Loader';
+import Modal from '../common/Modal/Modal';
+import * as api from '../../services/api';
+import addIcon from '../../images/add.svg';
+import pencilIcon from '../../images/pencil.png';
+import fingerIcon from '../../images/finger.png';
 
-const API_ENDPOINT = "departments";
+const API_ENDPOINT = 'departments';
 
 const ACTION = {
-  NONE: "none",
-  ADD: "add",
-  EDIT: "edit",
-  DELETE: "delete",
+  NONE: 'none',
+  ADD: 'add',
+  EDIT: 'edit',
+  DELETE: 'delete',
 };
 
 const DepartmentsBlock = () => {
   const { t } = useTranslation();
 
   const [departments, setDepartments] = useState([]);
-  // form / modal
+
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
   const [openedModal, setOpenedModal] = useState(ACTION.NONE);
-  // actions
+
   const [action, setAction] = useState(ACTION.NONE);
   const [activeDepartment, setActiveDepartment] = useState(null);
-  // api request status
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -57,9 +57,9 @@ const DepartmentsBlock = () => {
 
   // ADD DEPARTMENT
 
-  const toggleAddForm = () => setIsAddFormOpen((prevState) => !prevState);
+  const toggleAddForm = () => setIsAddFormOpen(prevState => !prevState);
 
-  const confirmAdd = (departmentName) => {
+  const confirmAdd = departmentName => {
     setActiveDepartment({ name: departmentName });
     setAction(ACTION.ADD);
   };
@@ -75,13 +75,10 @@ const DepartmentsBlock = () => {
           API_ENDPOINT,
           activeDepartment,
         );
-        setDepartments((prevDepartments) => [
-          ...prevDepartments,
-          newDepartment,
-        ]);
+        setDepartments(prevDepartments => [...prevDepartments, newDepartment]);
         toggleAddForm();
         toast.success(
-          `${t("departments.success-add", { name: newDepartment.name })}`,
+          `${t('departments.success-add', { name: newDepartment.name })}`,
         );
       } catch (error) {
         setError(error.message);
@@ -96,12 +93,12 @@ const DepartmentsBlock = () => {
 
   // EDIT DEPARTMENT
 
-  const handleStartEdit = (activeDepartment) => {
+  const handleStartEdit = activeDepartment => {
     setActiveDepartment(activeDepartment);
     setOpenedModal(ACTION.EDIT);
   };
 
-  const confirmEdit = (editedDepartmentName) => {
+  const confirmEdit = editedDepartmentName => {
     if (editedDepartmentName === activeDepartment.name) {
       closeModal();
       return;
@@ -121,14 +118,14 @@ const DepartmentsBlock = () => {
           API_ENDPOINT,
           activeDepartment,
         );
-        setDepartments((prevDepartments) =>
-          prevDepartments.map((department) =>
+        setDepartments(prevDepartments =>
+          prevDepartments.map(department =>
             department.id === updatedDepartment.id
               ? updatedDepartment
               : department,
           ),
         );
-        toast.success(t("departments.success-edit"));
+        toast.success(t('departments.success-edit'));
       } catch (error) {
         setError(error.message);
       } finally {
@@ -143,7 +140,7 @@ const DepartmentsBlock = () => {
 
   // DELETE DEPARTMENT
 
-  const handleStartDelete = (activeDepartment) => {
+  const handleStartDelete = activeDepartment => {
     setActiveDepartment(activeDepartment);
     setOpenedModal(ACTION.DELETE);
   };
@@ -161,12 +158,12 @@ const DepartmentsBlock = () => {
           API_ENDPOINT,
           activeDepartment.id,
         );
-        setDepartments((prevDepartments) =>
+        setDepartments(prevDepartments =>
           prevDepartments.filter(
-            (department) => department.id !== deletedDepartment.id,
+            department => department.id !== deletedDepartment.id,
           ),
         );
-        toast.success(t("departments.success-delete"));
+        toast.success(t('departments.success-delete'));
       } catch (error) {
         setError(error.message);
       } finally {
@@ -201,14 +198,14 @@ const DepartmentsBlock = () => {
       )}
 
       {noDepartments && (
-        <h4 className="absence-msg">{t("departments.no-departments")}</h4>
+        <h4 className="absence-msg">{t('departments.no-departments')}</h4>
       )}
 
       {isAddFormOpen && (
         <AddForm
           onSubmit={confirmAdd}
-          formName={t("departments.adding-department")}
-          placeholder={t("departments.department")}
+          formName={t('departments.adding-department')}
+          placeholder={t('departments.department')}
         />
       )}
 
@@ -217,8 +214,8 @@ const DepartmentsBlock = () => {
       <BigButton
         text={
           isAddFormOpen
-            ? t("common.cancel-add")
-            : t("departments.add-department")
+            ? t('common.cancel-add')
+            : t('departments.add-department')
         }
         icon={!isAddFormOpen && addIcon}
         onClick={toggleAddForm}
@@ -227,7 +224,7 @@ const DepartmentsBlock = () => {
 
       {openedModal === ACTION.EDIT && (
         <Modal
-          title={t("departments.modal.editing-title")}
+          title={t('departments.modal.editing-title')}
           onClose={closeModal}
           icon={pencilIcon}
         >
@@ -241,12 +238,12 @@ const DepartmentsBlock = () => {
 
       {openedModal === ACTION.DELETE && (
         <Modal
-          title={t("departments.modal.deleting-title")}
+          title={t('departments.modal.deleting-title')}
           onClose={closeModal}
           icon={fingerIcon}
         >
           <DeleteCard
-            text={t("departments.modal.description")}
+            text={t('departments.modal.description')}
             onDelete={confirmDelete}
             onClose={closeModal}
           />

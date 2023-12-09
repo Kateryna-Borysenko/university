@@ -1,16 +1,16 @@
-import { useCallback } from "react";
-import PropTypes from "prop-types";
-import Paper from "../common/Paper/Paper";
-import CardWithMenu from "./CardsWithMenu/CardsWithMenu";
-import s from "./ItemsList.module.css";
+import { useCallback } from 'react';
+import PropTypes from 'prop-types';
+import Paper from '../common/Paper/Paper';
+import CardWithMenu from './CardsWithMenu/CardsWithMenu';
+import s from './ItemsList.module.css';
 
 const ItemsList = ({ items, onEditItem, onDeleteItem, filter }) => {
   const highlightMatches = useCallback(
-    (text) => {
+    text => {
       if (!filter) {
         return <span>{text}</span>;
       }
-      const parts = text.split(new RegExp(`(${filter})`, "gi"));
+      const parts = text.split(new RegExp(`(${filter})`, 'gi'));
       return (
         <span>
           {parts.map((part, index) => (
@@ -18,7 +18,7 @@ const ItemsList = ({ items, onEditItem, onDeleteItem, filter }) => {
               key={index}
               style={
                 part.toLowerCase() === filter.toLowerCase()
-                  ? { backgroundColor: "#cbd58b" }
+                  ? { backgroundColor: '#cbd58b' }
                   : {}
               }
             >
@@ -33,7 +33,7 @@ const ItemsList = ({ items, onEditItem, onDeleteItem, filter }) => {
 
   return (
     <ul className={s.list}>
-      {items.map((item) => (
+      {items.map(item => (
         <li className={s.item} key={item.id}>
           <Paper>
             <CardWithMenu

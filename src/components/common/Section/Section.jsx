@@ -1,7 +1,7 @@
-import { useContext } from "react";
-import PropTypes from "prop-types";
-import { ThemeContext, themes } from "../../../context/themeContext";
-import s from "./Section.module.css";
+import { useContext } from 'react';
+import PropTypes from 'prop-types';
+import { ThemeContext, themes } from '../../../context/themeContext';
+import s from './Section.module.css';
 
 const Section = ({ icon, title, children }) => {
   const { theme } = useContext(ThemeContext);

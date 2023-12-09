@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import PropTypes from "prop-types";
-import s from "./Header.module.css";
-import { ThemeContext, themes } from "../../context/themeContext";
-import ThemeSwitcher from "../common/ThemeSwitcher/ThemeSwitcher";
+import { useContext } from 'react';
+import PropTypes from 'prop-types';
+import s from './Header.module.css';
+import { ThemeContext, themes } from '../../context/themeContext';
+import ThemeSwitcher from '../common/ThemeSwitcher/ThemeSwitcher';
 
 const Header = ({ title }) => {
   const { theme } = useContext(ThemeContext);

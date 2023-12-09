@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
-import s from "./NavItem.module.css";
+import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
+import s from './NavItem.module.css';
 
 const NavItem = ({ name, icon, path }) => {
   const setActive = ({ isActive }) => (isActive ? [s.active] : s.container);

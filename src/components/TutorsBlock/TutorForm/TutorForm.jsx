@@ -1,25 +1,25 @@
-import { useTranslation } from "react-i18next";
-import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import BigButton from "../../common/BigButton/BigButton";
-import Paper from "../../common/Paper/Paper";
-import Loader from "../../common/Loader/Loader";
-import ErrorMsg from "../../common/ErrorMsg/ErrorMsg";
-import { GENDER } from "./formData";
-import { citiesOptions } from "./formData";
-import { addTutor } from "../../../redux/tutors/tutorsOperations";
-import { validationSchema } from "./validationSchema";
-import s from "./TutorForm.module.css";
+import { useTranslation } from 'react-i18next';
+import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import BigButton from '../../common/BigButton/BigButton';
+import Paper from '../../common/Paper/Paper';
+import Loader from '../../common/Loader/Loader';
+import ErrorMsg from '../../common/ErrorMsg/ErrorMsg';
+import { GENDER } from './formData';
+import { citiesOptions } from './formData';
+import { addTutor } from '../../../redux/tutors/tutorsOperations';
+import { validationSchema } from './validationSchema';
+import s from './TutorForm.module.css';
 
 const TutorForm = ({ closeForm }) => {
   const { t } = useTranslation();
 
-  const loading = useSelector((state) => state.tutors.loading);
-  const error = useSelector((state) => state.tutors.error);
+  const loading = useSelector(state => state.tutors.loading);
+  const error = useSelector(state => state.tutors.error);
   const dispatch = useDispatch();
 
   const [newTutor, setNewTutor] = useState(null);
@@ -29,7 +29,7 @@ const TutorForm = ({ closeForm }) => {
   });
   const { errors } = formState;
 
-  const onSubmit = (data) => {
+  const onSubmit = data => {
     setNewTutor(data);
     reset();
   };
@@ -40,10 +40,11 @@ const TutorForm = ({ closeForm }) => {
     if (!newTutor) return;
 
     const addNewTutor = async () => {
-      await dispatch(addTutor(newTutor));
-      toast.success(t("tutorForm.success-add"));
-      setNewTutor(null);
-      closeForm();
+      dispatch(addTutor(newTutor)).then(() => {
+        toast.success(t('tutorForm.success-add'));
+        setNewTutor(null);
+        closeForm();
+      });
     };
 
     addNewTutor();
@@ -55,14 +56,14 @@ const TutorForm = ({ closeForm }) => {
 
       <Paper>
         <div className={s.inner}>
-          <h4 className={s.formName}>{t("tutorForm.title")}</h4>
+          <h4 className={s.formName}>{t('tutorForm.title')}</h4>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className={s.textFieldContainer}>
               <input
                 className={s.textField}
                 type="text"
-                placeholder={t("tutorForm.lastName")}
-                {...register("lastName")}
+                placeholder={t('tutorForm.lastName')}
+                {...register('lastName')}
               />
               {errors.lastName && (
                 <ErrorMsg message={errors.lastName.message} />
@@ -71,8 +72,8 @@ const TutorForm = ({ closeForm }) => {
               <input
                 className={s.textField}
                 type="text"
-                placeholder={t("tutorForm.firstName")}
-                {...register("firstName")}
+                placeholder={t('tutorForm.firstName')}
+                {...register('firstName')}
               />
               {errors.firstName && (
                 <ErrorMsg message={errors.firstName.message} />
@@ -81,19 +82,19 @@ const TutorForm = ({ closeForm }) => {
               <input
                 className={s.textField}
                 type="tel"
-                placeholder={t("tutorForm.phone")}
-                {...register("phone")}
+                placeholder={t('tutorForm.phone')}
+                {...register('phone')}
               />
               {errors.phone && <ErrorMsg message={errors.phone.message} />}
               <input
                 className={s.textField}
                 type="email"
-                placeholder={t("tutorForm.email")}
-                {...register("email")}
+                placeholder={t('tutorForm.email')}
+                {...register('email')}
               />
               {errors.email && <ErrorMsg message={errors.email.message} />}
 
-              <select className={s.textField} {...register("city")}>
+              <select className={s.textField} {...register('city')}>
                 {citiesOptions.map(({ value, label }) => (
                   <option key={value} value={value}>
                     {t(label)}
@@ -103,35 +104,35 @@ const TutorForm = ({ closeForm }) => {
               {errors.city && <ErrorMsg message={errors.city.message} />}
 
               <section>
-                <h5 className={s.inner}>{t("tutorForm.gender")}</h5>
-                <label className={s.inner}>{t("tutorForm.gender-male")}</label>
+                <h5 className={s.inner}>{t('tutorForm.gender')}</h5>
+                <label className={s.inner}>{t('tutorForm.gender-male')}</label>
                 <input
                   className={s.textField}
                   type="radio"
                   value={GENDER.MALE}
-                  {...register("gender")}
+                  {...register('gender')}
                 />
                 <label className={s.inner}>
-                  {t("tutorForm.gender-female")}
+                  {t('tutorForm.gender-female')}
                 </label>
                 <input
                   className={s.textField}
                   type="radio"
                   value={GENDER.FEMALE}
-                  {...register("gender")}
+                  {...register('gender')}
                 />
               </section>
               {errors.gender && <ErrorMsg message={errors.gender.message} />}
             </div>
 
-            <label className={s.inner}>{t("tutorForm.isFullTime")}</label>
+            <label className={s.inner}>{t('tutorForm.isFullTime')}</label>
             <input
               className={s.textField}
               type="checkbox"
-              {...register("isFullTime")}
+              {...register('isFullTime')}
             />
 
-            <BigButton type="submit" text={t("tutors.add-tutor")} />
+            <BigButton type="submit" text={t('tutors.add-tutor')} />
           </form>
         </div>
       </Paper>

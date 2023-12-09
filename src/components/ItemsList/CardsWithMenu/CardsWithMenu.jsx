@@ -1,11 +1,11 @@
-import { useTranslation } from "react-i18next";
-import { useState, useRef } from "react";
-import PropTypes from "prop-types";
-import useOutsideClickDetector from "../../../hooks/useOutsideClickDetector";
-import { ReactComponent as DotsIcon } from "../../../images/dots.svg";
-import editIcon from "../../../images/edit.svg";
-import deleteIcon from "../../../images/delete.svg";
-import s from "./CardsWithMenu.module.css";
+import { useTranslation } from 'react-i18next';
+import { useState, useRef } from 'react';
+import PropTypes from 'prop-types';
+import useOutsideClickDetector from '../../../hooks/useOutsideClickDetector';
+import { ReactComponent as DotsIcon } from '../../../images/dots.svg';
+import editIcon from '../../../images/edit.svg';
+import deleteIcon from '../../../images/delete.svg';
+import s from './CardsWithMenu.module.css';
 
 const CardWithMenu = ({ text, onEdit, onDelete }) => {
   const { t } = useTranslation();
@@ -14,7 +14,7 @@ const CardWithMenu = ({ text, onEdit, onDelete }) => {
 
   const cardRef = useRef(null);
 
-  const toggleMenu = () => setIsMenuOpen((prevState) => !prevState);
+  const toggleMenu = () => setIsMenuOpen(prevState => !prevState);
 
   useOutsideClickDetector(cardRef, toggleMenu, isMenuOpen);
 
@@ -46,13 +46,13 @@ const CardWithMenu = ({ text, onEdit, onDelete }) => {
             <span>
               <img className={s.icon} src={editIcon} alt="Edit" />
             </span>
-            <span>{t("common.edit")}</span>
+            <span>{t('common.edit')}</span>
           </div>
           <div className={s.menu_item} onClick={handleDelete}>
             <span>
               <img className={s.icon} src={deleteIcon} alt="Delete" />
             </span>
-            <span>{t("common.delete")}</span>
+            <span>{t('common.delete')}</span>
           </div>
         </div>
       )}

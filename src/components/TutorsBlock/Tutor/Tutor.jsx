@@ -1,9 +1,9 @@
-import { useTranslation } from "react-i18next";
-import PropTypes from "prop-types";
-import { ReactComponent as PhoneIcon } from "../../../images/phone.svg";
-import { ReactComponent as MailIcon } from "../../../images/mail.svg";
-import { ReactComponent as LocationIcon } from "../../../images/location.svg";
-import s from "./Tutor.module.css";
+import { useTranslation } from 'react-i18next';
+import PropTypes from 'prop-types';
+import { ReactComponent as PhoneIcon } from '../../../images/phone.svg';
+import { ReactComponent as MailIcon } from '../../../images/mail.svg';
+import { ReactComponent as LocationIcon } from '../../../images/location.svg';
+import s from './Tutor.module.css';
 
 const Tutor = ({
   firstName,
@@ -39,9 +39,9 @@ const Tutor = ({
       <div className={s.description}>
         <p>{isFullTime}</p>
         <div>
-          {t("tutorForm.isFullTime")} :
+          {t('tutorForm.isFullTime')} :
           <span style={{ marginLeft: 15 }}>
-            {isFullTime ? t("common.yes") : t("common.no")}
+            {isFullTime ? t('common.yes') : t('common.no')}
           </span>
         </div>
       </div>
