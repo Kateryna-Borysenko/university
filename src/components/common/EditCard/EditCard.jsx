@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { nanoid } from "nanoid";
@@ -5,6 +6,8 @@ import BigButton from "../BigButton/BigButton";
 import styles from "./EditCard.module.css";
 
 const EditCard = ({ label, onSave, inputValue }) => {
+  const { t } = useTranslation();
+
   const [input, setInput] = useState(inputValue);
   const inputRef = useRef(null);
 
@@ -38,7 +41,7 @@ const EditCard = ({ label, onSave, inputValue }) => {
         />
       </label>
       <div className={styles.btnWrapper}>
-        <BigButton type="submit" text="Сохранить" disabled={!input} />
+        <BigButton type="submit" text={t("common.save")} disabled={!input} />
       </div>
     </form>
   );

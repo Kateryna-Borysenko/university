@@ -14,7 +14,8 @@
     "edit": "edit",
     "delete": "delete",
     "yes": "yes",
-    "no": "no"
+    "no": "no",
+    "save": "Save"
   },
   "tutors": {
     "tutors": "Tutors",
@@ -57,7 +58,15 @@
     "city-filter": "Filter cities",
     "add-city": "Add city",
     "adding-city": "Adding city",
-    "city": "City"
+    "city": "City",
+    "success-add": "City {{name}} has been added!",
+    "success-edit": "City has been edited!",
+    "success-delete": "City has been deleted!",
+    "modal": {
+      "editing-title": "Edit city information",
+      "deleting-title": "Deleting a city",
+      "description": "All information about the city will be deleted."
+    }
   },
   "departments": {
     "departments": "Departments",
@@ -65,8 +74,8 @@
     "add-department": "Add department",
     "adding-department": "Adding department",
     "department": "Department",
-    "success-add": "Department '{{name}}' has been added!",
-    "success-edit": "Department '{{name}}' has been edited!",
+    "success-add": "Department {{name}} has been added!",
+    "success-edit": "Department has been edited!",
     "success-delete": "Department has been deleted!"
   },
   "department": {
