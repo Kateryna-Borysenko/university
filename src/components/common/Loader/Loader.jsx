@@ -8,10 +8,15 @@ const wrapperStyles = {
   left: '23%',
 };
 
-const Loader = () => {
+const Loader = ({ className }) => {
   return (
     <div css={wrapperStyles}>
-      <PulseLoader margin={4} size={13} color={'#cbd58b'} />
+      <PulseLoader
+        margin={4}
+        size={13}
+        color={'#cbd58b'}
+        className={className}
+      />
     </div>
   );
 };

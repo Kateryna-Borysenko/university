@@ -8,17 +8,16 @@ import Skeleton from '../common/Skeleton/Skeleton';
 import Paper from '../common/Paper/Paper';
 import Tutor from './Tutor/Tutor';
 import TutorForm from './TutorForm/TutorForm';
+import { tutorsSelectors, tutorsOperations } from '../../redux/tutors';
 import plusImg from '../../images/add.svg';
 import s from './TutorsBlock.module.css';
-
-import { getTutors } from '../../redux/tutors/tutorsOperations';
 
 const TutorsBlock = () => {
   const { t } = useTranslation();
 
-  const tutors = useSelector(state => state.tutors.items);
-  const loading = useSelector(state => state.tutors.loading);
-  const error = useSelector(state => state.tutors.error);
+  const tutors = useSelector(tutorsSelectors.getTutors);
+  const firstLoading = useSelector(tutorsSelectors.getFirstLoading);
+  const error = useSelector(tutorsSelectors.getError);
   const dispatch = useDispatch();
 
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -26,7 +25,7 @@ const TutorsBlock = () => {
   // FETCH TUTORS
 
   useEffect(() => {
-    dispatch(getTutors());
+    dispatch(tutorsOperations.getTutors());
   }, [dispatch]);
 
   const toggleForm = useCallback(
@@ -34,17 +33,19 @@ const TutorsBlock = () => {
     [],
   );
 
-  const noTutors = !loading && !tutors.length;
+  const noTutors = !firstLoading && !tutors.length;
+
+  const showTutors = !firstLoading && !!tutors.length;
 
   return (
     <>
-      {loading && <Skeleton />}
+      {firstLoading && <Skeleton />}
 
-      {loading && <Loader />}
+      {firstLoading && <Loader />}
 
       {noTutors && <h4 className="absence-msg">{t('tutors.no-tutors')}</h4>}
 
-      {!!tutors.length && (
+      {showTutors && (
         <div className={s.container}>
           <ul>
             {tutors.map(tutor => (
@@ -64,7 +65,7 @@ const TutorsBlock = () => {
             onClick={toggleForm}
             icon={!isFormOpen && plusImg}
             text={isFormOpen ? t('common.cancel-add') : t('tutors.add-tutor')}
-            disabled={loading}
+            disabled={firstLoading}
           />
         </div>
       )}

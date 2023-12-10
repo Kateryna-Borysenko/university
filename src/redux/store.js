@@ -26,7 +26,8 @@ const persistCitiesConfig = {
 STORE = {
   tutors: {
     items: [],
-    loading: bool,
+    firstLoading: false
+    loading: false,
     error: null
   }
 

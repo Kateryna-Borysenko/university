@@ -60,3 +60,7 @@ input::placeholder {
   margin-bottom: 14px;
   font-size: 14px;
 }
+
+.loader {
+  margin: -65px 0 0 0;
+}
