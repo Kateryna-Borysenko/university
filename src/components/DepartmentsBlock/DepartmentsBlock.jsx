@@ -194,6 +194,7 @@ const DepartmentsBlock = () => {
           items={departments}
           onEditItem={handleStartEdit}
           onDeleteItem={handleStartDelete}
+          link="departments"
         />
       )}
 

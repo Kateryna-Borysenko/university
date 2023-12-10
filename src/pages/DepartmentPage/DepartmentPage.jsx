@@ -45,7 +45,7 @@ const DepartmentPage = () => {
       <Header title={department.name ?? t('departments.department')} />
       <div className={s.wrapper}>
         <BigButton
-          text={location.state?.label ?? t('department.go-back-btn')}
+          text={t(location.state?.label) ?? t('department.go-back-btn')}
           onClick={handleGoBack}
           isGray
         />

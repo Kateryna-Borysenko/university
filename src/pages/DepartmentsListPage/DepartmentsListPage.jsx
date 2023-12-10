@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Paper from '../../components/common/Paper/Paper';
@@ -7,6 +8,8 @@ import s from './DepartmentsListPage.module.css';
 
 const API_ENDPOINT = 'departments';
 const DepartmentsListPage = () => {
+  const { t } = useTranslation();
+
   const [departments, setDepartments] = useState([]);
   const location = useLocation();
 
@@ -21,7 +24,7 @@ const DepartmentsListPage = () => {
   }, []);
   return (
     <>
-      <Header title="Факультеты" />
+      <Header title={t('sidebar.departments')} />
       {!!departments.length && (
         <ul>
           {departments.map(({ id, name }) => (
@@ -30,7 +33,7 @@ const DepartmentsListPage = () => {
                 to={id}
                 state={{
                   from: location,
-                  label: 'Назад ко всем факультетам',
+                  label: 'department.go-back-btn',
                 }}
               >
                 <Paper>

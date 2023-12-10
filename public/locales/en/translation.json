@@ -6,7 +6,8 @@
   "university": {
     "info": "University information",
     "word": "university",
-    "description": "Experience, concentration of knowledge and the ability to avoid most of the mistakes when hiring. We know what most local and foreign companies want and we can give it to you. And we are constantly improving our programming courses, adding something new there. You can personally read the success stories of our graduates to be convinced of the effectiveness of our teaching methodology. Yes, we will start with the basics and the simplest information. We know that most people come to us with zero knowledge."
+    "description": "Experience, concentration of knowledge and the ability to avoid most of the mistakes when hiring. We know what most local and foreign companies want and we can give it to you. And we are constantly improving our programming courses, adding something new there. You can personally read the success stories of our graduates to be convinced of the effectiveness of our teaching methodology. Yes, we will start with the basics and the simplest information. We know that most people come to us with zero knowledge.",
+    "go-back-univer-btn": "Go Back to University"
   },
   "common": {
     "add": "add",
