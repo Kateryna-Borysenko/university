@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import ItemsList from '../ItemsList/ItemsList';
@@ -11,7 +11,11 @@ import EditCard from '../common/EditCard/EditCard';
 import AddForm from '../common/AddForm/AddForm';
 import Filter from './Filter/Filter';
 import DeleteCard from '../common/DeleteCard/DeleteCard';
-import { citiesActions, citiesOperations } from '../../redux/cities';
+import {
+  citiesActions,
+  citiesOperations,
+  citiesSelectors,
+} from '../../redux/cities';
 import addIcon from '../../images/add.svg';
 import pencilIcon from '../../images/pencil.png';
 import fingerIcon from '../../images/finger.png';
@@ -22,16 +26,15 @@ const ACTION = {
   EDIT: 'edit',
   DELETE: 'delete',
 };
-
 const { getCities, addCity, editCity, deleteCity } = citiesOperations;
 
 const CitiesBlock = () => {
   const { t } = useTranslation();
 
-  const cities = useSelector(state => state.cities.data.items);
-  const filter = useSelector(state => state.cities.filter);
-  const loading = useSelector(state => state.cities.data.loading);
-  const error = useSelector(state => state.cities.data.error);
+  const cities = useSelector(citiesSelectors.getCities);
+  const filteredCities = useSelector(citiesSelectors.getMemoizedFilteredCities);
+  const loading = useSelector(citiesSelectors.getLoading);
+  const error = useSelector(citiesSelectors.getError);
   const dispatch = useDispatch();
 
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
@@ -128,14 +131,6 @@ const CitiesBlock = () => {
 
   // FILTER CITIES
 
-  const filteredCities = useMemo(() => {
-    const normalizedFilter = filter.toLowerCase();
-    return cities.filter(city =>
-      city.name.toLowerCase().includes(normalizedFilter),
-    );
-  }, [cities, filter]);
-
-  // RENDER
   const noCities = !loading && !cities.length;
 
   useEffect(() => {
@@ -155,7 +150,6 @@ const CitiesBlock = () => {
           items={filteredCities}
           onEditItem={handleStartEdit}
           onDeleteItem={handleStartDelete}
-          filter={filter}
         />
       )}
 

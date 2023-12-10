@@ -1,36 +1,82 @@
 import { useTranslation } from 'react-i18next';
+import { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { useState, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import useOutsideClickDetector from '../../../hooks/useOutsideClickDetector';
+import { citiesSelectors } from '../../../redux/cities';
 import { ReactComponent as DotsIcon } from '../../../images/dots.svg';
 import editIcon from '../../../images/edit.svg';
 import deleteIcon from '../../../images/delete.svg';
 import s from './CardsWithMenu.module.css';
 
-const CardWithMenu = ({ text, onEdit, onDelete }) => {
+const CardWithMenu = ({ item, onEdit, onDelete, link }) => {
+  const filter = useSelector(citiesSelectors.getFilter);
+
   const { t } = useTranslation();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const location = useLocation();
+
   const cardRef = useRef(null);
 
-  const toggleMenu = () => setIsMenuOpen(prevState => !prevState);
+  const toggleMenu = useCallback(() => setIsMenuOpen(prev => !prev), []);
 
   useOutsideClickDetector(cardRef, toggleMenu, isMenuOpen);
 
-  const handleEdit = () => {
+  const highlightMatches = useCallback(
+    text => {
+      if (!filter) {
+        return text;
+      }
+
+      const parts = text.split(new RegExp(`(${filter})`, 'gi'));
+      return (
+        <span>
+          {parts.map((part, index) => (
+            <span
+              key={index}
+              style={
+                part.toLowerCase() === filter.toLowerCase()
+                  ? { backgroundColor: '#cbd58b' }
+                  : {}
+              }
+            >
+              {part}
+            </span>
+          ))}
+        </span>
+      );
+    },
+    [filter],
+  );
+
+  const handleEdit = useCallback(() => {
     onEdit();
     toggleMenu();
-  };
+  }, [onEdit, toggleMenu]);
 
-  const handleDelete = () => {
+  const handleDelete = useCallback(() => {
     onDelete();
     toggleMenu();
-  };
+  }, [onDelete, toggleMenu]);
 
   return (
     <div ref={cardRef} className={s.card}>
-      <p>{text}</p>
+      {link && (
+        <Link
+          to={`/${link}/${item.id}`}
+          state={{
+            from: location,
+            label: 'university.go-back-univer-btn',
+          }}
+        >
+          <p>{item.name}</p>
+        </Link>
+      )}
+      {!link && <p>{highlightMatches(item.name)}</p>}
       <button
         className={s.btn}
         type="button"
@@ -61,9 +107,10 @@ const CardWithMenu = ({ text, onEdit, onDelete }) => {
 };
 
 CardWithMenu.propTypes = {
-  text: PropTypes.object.isRequired,
+  item: PropTypes.object.isRequired,
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
+  link: PropTypes.string,
 };
 
 export default CardWithMenu;
