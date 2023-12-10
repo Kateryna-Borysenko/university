@@ -1,11 +1,11 @@
-import { useTranslation } from "react-i18next";
-import ukrainianFlagIcon from "../../../images/ukraine.png";
-import americanFlagIcon from "../../../images/america.png";
-import s from "./LangsSwitcher.module.css";
+import { useTranslation } from 'react-i18next';
+import ukrainianFlagIcon from '../../../images/ukraine.png';
+import americanFlagIcon from '../../../images/america.png';
+import s from './LangsSwitcher.module.css';
 
 const languages = {
-  en: { icon: americanFlagIcon, nativeName: "English" },
-  ukr: { icon: ukrainianFlagIcon, nativeName: "Українська" },
+  en: { icon: americanFlagIcon, nativeName: 'English' },
+  ukr: { icon: ukrainianFlagIcon, nativeName: 'Українська' },
 };
 
 const LangsSwitcher = () => {
@@ -13,7 +13,7 @@ const LangsSwitcher = () => {
 
   return (
     <div className={s.switcher}>
-      {Object.keys(languages).map((lng) => (
+      {Object.keys(languages).map(lng => (
         <div key={lng} className={s.btnWrapper}>
           <button
             className={i18n.resolvedLanguage === lng ? s.active : s.button}

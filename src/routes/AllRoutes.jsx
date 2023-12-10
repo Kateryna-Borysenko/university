@@ -1,25 +1,25 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy } from 'react';
 import {
   Routes,
   Route,
   Navigate,
   Location,
   useLocation,
-} from "react-router-dom";
-import Paper from "../components/common/Paper/Paper";
-import { publicRoutes } from "./index";
-import Spinner from "../components/common/Spinner/Spinner";
+} from 'react-router-dom';
+import Paper from '../components/common/Paper/Paper';
+import { publicRoutes } from './index';
+import Spinner from '../components/common/Spinner/Spinner';
 
 const DepartmentPage = lazy(
   () =>
     import(
-      "../pages/DepartmentPage/DepartmentPage" /* webpackChunkName: "Department___page" */
+      '../pages/DepartmentPage/DepartmentPage' /* webpackChunkName: "Department___page" */
     ),
 );
 const NotFoundPage = lazy(
   () =>
     import(
-      "../pages/NotFoundPage/NotFoundPage" /* webpackChunkName: "NotFound___page" */
+      '../pages/NotFoundPage/NotFoundPage' /* webpackChunkName: "NotFound___page" */
     ),
 );
 
@@ -35,7 +35,7 @@ const AllRoutes = () => {
             element={
               <Paper>
                 <p>
-                  <span style={{ color: "red" }}>
+                  <span style={{ color: 'red' }}>
                     Разобраться !!! c адресной строкой
                   </span>
                   Lorem ipsum, dolor sit amet consectetur adipisicing elit.

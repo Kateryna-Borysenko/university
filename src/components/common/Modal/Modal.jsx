@@ -1,28 +1,28 @@
-import { useLockBodyScroll } from "react-use";
-import { useEffect } from "react";
-import { createPortal } from "react-dom";
-import PropTypes from "prop-types";
-import s from "./Modal.module.css";
-const modalRootRef = document.querySelector("#modal-root");
+import { useLockBodyScroll } from 'react-use';
+import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import PropTypes from 'prop-types';
+import s from './Modal.module.css';
+const modalRootRef = document.querySelector('#modal-root');
 
 const Modal = ({ onClose, icon, title, children }) => {
   useLockBodyScroll(true);
 
   useEffect(() => {
-    const onEscPress = (e) => {
-      if (e.code === "Escape") {
+    const onEscPress = e => {
+      if (e.code === 'Escape') {
         onClose();
       }
     };
 
-    window.addEventListener("keydown", onEscPress);
+    window.addEventListener('keydown', onEscPress);
 
     return () => {
-      window.removeEventListener("keydown", onEscPress);
+      window.removeEventListener('keydown', onEscPress);
     };
   }, [onClose]);
 
-  const handleBackdropClick = (e) => {
+  const handleBackdropClick = e => {
     if (e.target === e.currentTarget) {
       onClose();
     }

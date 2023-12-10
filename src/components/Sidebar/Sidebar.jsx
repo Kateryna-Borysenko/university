@@ -1,11 +1,11 @@
-import { useContext } from "react";
-import Navigation from "../Navigation/Navigation";
-import { navConfig } from "../../data/navigation";
-import useToggle from "../../hooks/useToggle";
-import { ThemeContext, themes } from "../../context/themeContext";
-import defineStyles from "./defineStyles";
-import "./Sidebar.css";
-import s from "./Sidebar.module.css";
+import { useContext } from 'react';
+import Navigation from '../Navigation/Navigation';
+import { navConfig } from '../../data/navigation';
+import useToggle from '../../hooks/useToggle';
+import { ThemeContext, themes } from '../../context/themeContext';
+import defineStyles from './defineStyles';
+import './Sidebar.css';
+import s from './Sidebar.module.css';
 
 const Sidebar = () => {
   const { theme } = useContext(ThemeContext);

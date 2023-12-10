@@ -1,43 +1,43 @@
 /** @jsxImportSource @emotion/react */
 
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 const btnStyles = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  padding: "12px 16px",
-  backgroundColor: "#FF6B0A",
-  border: "none",
-  cursor: "pointer",
-  transition: "all 200ms",
-  "&:not(:disabled):hover": {
-    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.25)",
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '12px 16px',
+  backgroundColor: '#FF6B0A',
+  border: 'none',
+  cursor: 'pointer',
+  transition: 'all 200ms',
+  '&:not(:disabled):hover': {
+    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.25)',
   },
-  "&:disabled": {
-    backgroundColor: "#cec5cc",
-    cursor: "not-allowed",
+  '&:disabled': {
+    backgroundColor: '#cec5cc',
+    cursor: 'not-allowed',
   },
-  "& .image": {
+  '& .image': {
     marginRight: 10,
   },
-  "& .heading": {
-    color: "#fff",
+  '& .heading': {
+    color: '#fff',
     lineHeight: 1.2,
   },
 };
 
-const defineStyles = (isGray) => ({
+const defineStyles = isGray => ({
   ...btnStyles,
-  backgroundColor: isGray ? "#BDBDBD" : "#e1b4d3",
+  backgroundColor: isGray ? '#BDBDBD' : '#e1b4d3',
 });
 
-const BigButton = (props) => {
+const BigButton = props => {
   const {
     text,
     icon,
     onClick = () => {},
-    type = "button",
+    type = 'button',
     disabled = false,
     isGray = false,
   } = props;

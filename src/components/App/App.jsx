@@ -1,19 +1,19 @@
-import { useState, Suspense } from "react";
-import { ToastContainer } from "react-toastify";
-import { ThemeContext, themes } from "../../context/themeContext";
-import Sidebar from "../Sidebar/Sidebar";
-import Main from "../Main/Main";
-import Spinner from "../common/Spinner/Spinner";
+import { useState, Suspense } from 'react';
+import { ToastContainer } from 'react-toastify';
+import { ThemeContext, themes } from '../../context/themeContext';
+import Sidebar from '../Sidebar/Sidebar';
+import Main from '../Main/Main';
+import Spinner from '../common/Spinner/Spinner';
 // import Footer from "../Footer/Footer";
-import s from "./App.module.css";
-import "react-toastify/dist/ReactToastify.css";
-import Container from "../common/Container/Container";
+import s from './App.module.css';
+import 'react-toastify/dist/ReactToastify.css';
+import Container from '../common/Container/Container';
 
 const App = () => {
   const [theme, setTheme] = useState(themes.light);
 
   const toggleTheme = () =>
-    setTheme((prevTheme) =>
+    setTheme(prevTheme =>
       prevTheme === themes.light ? themes.dark : themes.light,
     );
 
@@ -25,7 +25,7 @@ const App = () => {
             <Sidebar />
             <Main />
           </ThemeContext.Provider>
-          <ToastContainer theme="light" />
+          <ToastContainer theme="light" autoClose={2500} />
           {/* <Footer /> */}
         </div>
       </Container>

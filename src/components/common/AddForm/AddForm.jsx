@@ -1,24 +1,24 @@
-import { useTranslation } from "react-i18next";
-import { useState } from "react";
-import PropTypes from "prop-types";
-import BigButton from "../BigButton/BigButton";
-import Paper from "../Paper/Paper";
-import s from "./AddForm.module.css";
+import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+import BigButton from '../BigButton/BigButton';
+import Paper from '../Paper/Paper';
+import s from './AddForm.module.css';
 
 const AddForm = ({ onSubmit, formName, placeholder }) => {
   const { t } = useTranslation();
 
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
 
-  const handleChange = (e) => setInput(e.target.value);
+  const handleChange = e => setInput(e.target.value);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     onSubmit(input);
     reset();
   };
 
-  const reset = () => setInput("");
+  const reset = () => setInput('');
 
   return (
     <div className={s.container}>
@@ -35,7 +35,7 @@ const AddForm = ({ onSubmit, formName, placeholder }) => {
               onChange={handleChange}
             />
 
-            <BigButton type="submit" text={t("common.add")} disabled={!input} />
+            <BigButton type="submit" text={t('common.add')} disabled={!input} />
           </form>
         </div>
       </Paper>

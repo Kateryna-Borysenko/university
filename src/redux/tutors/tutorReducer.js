@@ -1,4 +1,4 @@
-import { createReducer, combineReducers } from "@reduxjs/toolkit";
+import { createReducer, combineReducers } from '@reduxjs/toolkit';
 import {
   getTutorsRequest,
   getTutorsSuccess,
@@ -6,9 +6,9 @@ import {
   addTutorRequest,
   addTutorSuccess,
   addTutorError,
-} from "./tutorsActions";
+} from './tutorsActions';
 
-const itemsReducer = createReducer([], (builder) => {
+const itemsReducer = createReducer([], builder => {
   builder.addCase(getTutorsSuccess, (_, action) => action.payload);
   builder.addCase(addTutorSuccess, (state, action) => [
     ...state,
@@ -16,7 +16,14 @@ const itemsReducer = createReducer([], (builder) => {
   ]);
 });
 
-const loadingReducer = createReducer(false, (builder) => {
+const firstLoadingReducer = createReducer(false, builder => {
+  builder
+    .addCase(getTutorsRequest, () => true)
+    .addCase(getTutorsSuccess, () => false)
+    .addCase(getTutorsError, () => false);
+});
+
+const loadingReducer = createReducer(false, builder => {
   builder
     .addCase(getTutorsRequest, () => true)
     .addCase(getTutorsSuccess, () => false)
@@ -27,7 +34,7 @@ const loadingReducer = createReducer(false, (builder) => {
     .addCase(addTutorError, () => false);
 });
 
-const errorReducer = createReducer(null, (builder) => {
+const errorReducer = createReducer(null, builder => {
   builder
     .addCase(getTutorsRequest, () => null)
     .addCase(getTutorsError, (_, { payload }) => payload)
@@ -39,6 +46,7 @@ const errorReducer = createReducer(null, (builder) => {
 const tutorsReducer = combineReducers({
   items: itemsReducer,
   loading: loadingReducer,
+  firstLoading: firstLoadingReducer,
   error: errorReducer,
 });
 
