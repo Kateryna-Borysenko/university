@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { types } from './departmentsTypes';
 
-const itemsReducer = (state = [55], { type, payload }) => {
+const itemsReducer = (state = [], { type, payload }) => {
   switch (type) {
     case types.GET_FULFILLED:
       return payload;

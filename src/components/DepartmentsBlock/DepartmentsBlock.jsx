@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import BigButton from '../common/BigButton/BigButton';
 import ItemsList from '../ItemsList/ItemsList';
@@ -9,12 +10,13 @@ import EditCard from '../common/EditCard/EditCard';
 import ErrorMsg from '../common/ErrorMsg/ErrorMsg';
 import Loader from '../common/Loader/Loader';
 import Modal from '../common/Modal/Modal';
-import * as api from '../../services/api';
+import {
+  departmentsOperations,
+  departmentsSelectors,
+} from '../../redux/departments';
 import addIcon from '../../images/add.svg';
 import pencilIcon from '../../images/pencil.png';
 import fingerIcon from '../../images/finger.png';
-
-const API_ENDPOINT = 'departments';
 
 const ACTION = {
   NONE: 'none',
@@ -26,7 +28,11 @@ const ACTION = {
 const DepartmentsBlock = () => {
   const { t } = useTranslation();
 
-  const [departments, setDepartments] = useState([]);
+  const departments = useSelector(departmentsSelectors.getDepartments);
+  const loading = useSelector(departmentsSelectors.getLoading);
+  const error = useSelector(departmentsSelectors.getError);
+
+  const dispatch = useDispatch();
 
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
   const [openedModal, setOpenedModal] = useState(ACTION.NONE);
@@ -34,26 +40,11 @@ const DepartmentsBlock = () => {
   const [action, setAction] = useState(ACTION.NONE);
   const [activeDepartment, setActiveDepartment] = useState(null);
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
   // GET DEPARTMENTS
 
   useEffect(() => {
-    const fetchDepartments = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const departments = await api.getData(API_ENDPOINT);
-        setDepartments(departments);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchDepartments();
-  }, []);
+    dispatch(departmentsOperations.getDepartments());
+  }, [dispatch]);
 
   // ADD DEPARTMENT
 
@@ -67,29 +58,15 @@ const DepartmentsBlock = () => {
   useEffect(() => {
     if (action !== ACTION.ADD) return;
 
-    const addDepartment = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const newDepartment = await api.saveItem(
-          API_ENDPOINT,
-          activeDepartment,
-        );
-        setDepartments(prevDepartments => [...prevDepartments, newDepartment]);
-        toggleAddForm();
-        toast.success(
-          `${t('departments.success-add', { name: newDepartment.name })}`,
-        );
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setAction(ACTION.NONE);
-        setLoading(false);
-        setActiveDepartment(null);
-      }
-    };
-    addDepartment();
-  }, [action, activeDepartment, t]);
+    dispatch(departmentsOperations.addDepartment(activeDepartment)).then(() => {
+      toast.success(
+        `${t('departments.success-add', { name: activeDepartment.name })}`,
+      );
+      toggleAddForm();
+      setAction(ACTION.NONE);
+      setActiveDepartment(null);
+    });
+  }, [action, activeDepartment, dispatch, t]);
 
   // EDIT DEPARTMENT
 
@@ -110,33 +87,15 @@ const DepartmentsBlock = () => {
   useEffect(() => {
     if (action !== ACTION.EDIT) return;
 
-    const editDepartment = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const updatedDepartment = await api.editItem(
-          API_ENDPOINT,
-          activeDepartment,
-        );
-        setDepartments(prevDepartments =>
-          prevDepartments.map(department =>
-            department.id === updatedDepartment.id
-              ? updatedDepartment
-              : department,
-          ),
-        );
+    dispatch(departmentsOperations.editDepartment(activeDepartment)).then(
+      () => {
         toast.success(t('departments.success-edit'));
-      } catch (error) {
-        setError(error.message);
-      } finally {
         setAction(ACTION.NONE);
         closeModal();
-        setLoading(false);
         setActiveDepartment(null);
-      }
-    };
-    editDepartment();
-  }, [action, activeDepartment, t]);
+      },
+    );
+  }, [action, activeDepartment, dispatch, t]);
 
   // DELETE DEPARTMENT
 
@@ -150,31 +109,15 @@ const DepartmentsBlock = () => {
   useEffect(() => {
     if (action !== ACTION.DELETE) return;
 
-    const deleteDepartment = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const deletedDepartment = await api.deleteItem(
-          API_ENDPOINT,
-          activeDepartment.id,
-        );
-        setDepartments(prevDepartments =>
-          prevDepartments.filter(
-            department => department.id !== deletedDepartment.id,
-          ),
-        );
+    dispatch(departmentsOperations.deleteDepartment(activeDepartment.id)).then(
+      () => {
         toast.success(t('departments.success-delete'));
-      } catch (error) {
-        setError(error.message);
-      } finally {
         setAction(ACTION.NONE);
         closeModal();
-        setLoading(false);
         setActiveDepartment(null);
-      }
-    };
-    deleteDepartment();
-  }, [action, activeDepartment, t]);
+      },
+    );
+  }, [action, activeDepartment, dispatch, t]);
 
   const closeModal = () => {
     setOpenedModal(ACTION.NONE);
