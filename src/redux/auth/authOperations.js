@@ -59,7 +59,12 @@ const signIn = createAsyncThunk(
 );
 
 // const signOut = createAsyncThunk('auth/signOut', async () => {
-//   // token.unset();
+//   try {
+//     // await axios.post('/signout');
+//     // token.unset();
+//   } catch (error) {
+//     // return error;
+//   }
 // });
 
 const getUser = createAsyncThunk('auth/getUser', async (token, thunkApi) => {

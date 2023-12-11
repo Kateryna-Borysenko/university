@@ -13,12 +13,6 @@ const DepartmentPage = lazy(
       '../pages/DepartmentPage/DepartmentPage' /* webpackChunkName: "Department___page" */
     ),
 );
-// const NotFoundPage = lazy(
-//   () =>
-//     import(
-//       '../pages/NotFoundPage/NotFoundPage' /* webpackChunkName: "NotFound___page" */
-//     ),
-// );
 
 const AllRoutes = () => {
   return (
