@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import BigButton from '../../../components/common/BigButton/BigButton';
 import Paper from '../../../components/common/Paper/Paper';
-import Header from '../../../components/common/Header/Header';
+import Header from '../../../components/Header/Header';
 import { authOperations, authSelectors } from '../../../redux/auth';
 
 export const SignUpPage = () => {
@@ -40,7 +40,7 @@ export const SignUpPage = () => {
               <input
                 value={displayName}
                 type="text"
-                placeholder="John Doe"
+                placeholder="Kateryna Borysenko"
                 required
                 onChange={e => setDisplayName(e.target.value)}
               />

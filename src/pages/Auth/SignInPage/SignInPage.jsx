@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import BigButton from '../../../components/common/BigButton/BigButton';
 import Paper from '../../../components/common/Paper/Paper';
-import Header from '../../../components/common/Header/Header';
+import Header from '../../../components/Header/Header';
 import { authOperations, authSelectors } from '../../../redux/auth';
 
 export const SignInPage = () => {
