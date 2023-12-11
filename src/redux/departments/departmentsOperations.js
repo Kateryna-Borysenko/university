@@ -6,7 +6,11 @@ const API_ENDPOINT = 'departments';
 const getDepartments = () => async dispatch => {
   dispatch(actions.getDepartmentsPending());
   try {
-    const departments = await api.getData(API_ENDPOINT);
+    const data = await api.getData(API_ENDPOINT);
+    const departments = Object.keys(data || {}).map(id => ({
+      id,
+      ...data[id],
+    }));
     dispatch(actions.getDepartmentsFulfilled(departments));
   } catch (error) {
     dispatch(actions.getDepartmentsRejected(error.message));
@@ -16,7 +20,8 @@ const getDepartments = () => async dispatch => {
 const addDepartment = newDepartment => async dispatch => {
   dispatch(actions.addDepartmentPending());
   try {
-    const savedDepartment = await api.saveItem(API_ENDPOINT, newDepartment);
+    const data = await api.saveItem(API_ENDPOINT, newDepartment);
+    const savedDepartment = { id: data.name, ...newDepartment };
     dispatch(actions.addDepartmentFulfilled(savedDepartment));
   } catch (error) {
     dispatch(actions.addDepartmentRejected(error.message));
@@ -36,8 +41,8 @@ const editDepartment = updatedDepartment => async dispatch => {
 const deleteDepartment = idToDelete => async dispatch => {
   dispatch(actions.deleteDepartmentPending());
   try {
-    const deletedDepartment = await api.deleteItem(API_ENDPOINT, idToDelete);
-    dispatch(actions.deleteDepartmentFulfilled(deletedDepartment.id));
+    await api.deleteItem(API_ENDPOINT, idToDelete);
+    dispatch(actions.deleteDepartmentFulfilled(idToDelete));
   } catch (error) {
     dispatch(actions.deleteDepartmentRejected(error.message));
   }

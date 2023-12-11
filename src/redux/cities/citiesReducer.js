@@ -1,21 +1,21 @@
-import { createReducer, createAction, combineReducers } from "@reduxjs/toolkit";
-import { getCities, addCity, editCity, deleteCity } from "./citiesOperations";
+import { createReducer, createAction, combineReducers } from '@reduxjs/toolkit';
+import { getCities, addCity, editCity, deleteCity } from './citiesOperations';
 
-const changeFilter = createAction("cities/changeFilter");
+const changeFilter = createAction('cities/changeFilter');
 
-const itemsReducer = createReducer([], (builder) => {
+const itemsReducer = createReducer([], builder => {
   builder
-    .addCase(getCities.fulfilled, (_, { payload }) => payload)
+    .addCase(getCities.fulfilled, (_, { payload }) => payload || [])
     .addCase(addCity.fulfilled, (state, { payload }) => [...state, payload])
     .addCase(editCity.fulfilled, (state, { payload }) =>
-      state.map((city) => (city.id === payload.id ? payload : city)),
+      state.map(city => (city.id === payload.id ? payload : city)),
     )
     .addCase(deleteCity.fulfilled, (state, { payload }) =>
-      state.filter((city) => city.id !== payload.id),
+      state.filter(city => city.id !== payload.id),
     );
 });
 
-const loadingReducer = createReducer(false, (builder) => {
+const loadingReducer = createReducer(false, builder => {
   builder
     .addCase(getCities.pending, () => true)
     .addCase(getCities.fulfilled, () => false)
@@ -34,7 +34,7 @@ const loadingReducer = createReducer(false, (builder) => {
     .addCase(deleteCity.rejected, () => false);
 });
 
-const errorReducer = createReducer(null, (builder) => {
+const errorReducer = createReducer(null, builder => {
   builder
     .addCase(getCities.pending, () => null)
     .addCase(getCities.rejected, (_, { payload }) => payload)
@@ -49,7 +49,7 @@ const errorReducer = createReducer(null, (builder) => {
     .addCase(deleteCity.rejected, (_, { payload }) => payload);
 });
 
-const filterReducer = createReducer("", (builder) => {
+const filterReducer = createReducer('', builder => {
   builder.addCase(changeFilter, (_, { payload }) => payload);
 });
 

@@ -1,11 +1,5 @@
 import { Suspense, lazy } from 'react';
-import {
-  Routes,
-  Route,
-  Navigate,
-  Location,
-  useLocation,
-} from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Paper from '../components/common/Paper/Paper';
 import { publicRoutes } from './index';
 import Spinner from '../components/common/Spinner/Spinner';
