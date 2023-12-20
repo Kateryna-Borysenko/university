@@ -1,30 +1,38 @@
 import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import Paper from '../../components/common/Paper/Paper';
 import Header from '../../components/Header/Header';
-import * as api from '../../services/api';
+import AbsenceMsg from '../../components/common/AbsenceMsg/AbsenceMsg';
+import {
+  departmentsOperations,
+  departmentsSelectors,
+} from '../../redux/departments';
 import s from './DepartmentsListPage.module.css';
 
-const API_ENDPOINT = 'departments';
 const DepartmentsListPage = () => {
   const { t } = useTranslation();
 
-  const [departments, setDepartments] = useState([]);
+  const dispatch = useDispatch();
   const location = useLocation();
 
   useEffect(() => {
-    const fetchDepartments = () => {
-      api
-        .getData(API_ENDPOINT)
-        .then(setDepartments)
-        .catch(err => console.log(err.message));
-    };
-    fetchDepartments();
-  }, []);
+    dispatch(departmentsOperations.getDepartments());
+  }, [dispatch]);
+
+  const loading = useSelector(departmentsSelectors.getLoading);
+  const departments = useSelector(departmentsSelectors.getDepartments);
+
+  const noDepartments = !loading && !departments.length;
   return (
     <>
       <Header title={t('sidebar.departments')} />
+
+      {noDepartments && (
+        <AbsenceMsg message={t('departments.no-departments')} />
+      )}
+
       {!!departments.length && (
         <ul>
           {departments.map(({ id, name }) => (
