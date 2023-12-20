@@ -14,6 +14,7 @@ import authReducer from './auth/authSlice';
 import tutorsReducer from './tutors/tutorReducer';
 import citiesReducer from './cities/citiesSlice';
 import departmentsReducer from './departments/departmentsReducer';
+import univerReducer from './univer/univer-slice';
 import { customMiddlewareLogger } from './Middleware/customMiddlewareLogger';
 
 const persistCitiesConfig = {
@@ -73,6 +74,7 @@ const store = configureStore({
     tutors: tutorsReducer,
     cities: persistReducer(persistCitiesConfig, citiesReducer),
     departments: departmentsReducer,
+    univer: univerReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
