@@ -79,9 +79,12 @@ const AllRoutes = () => {
         {onlyAuthRoutes.map(({ path, component: Component, redirectTo }) => (
           <Route
             key={path}
+            //path =  "/university"
             path={path}
             element={
+              //redirectTo = "/sing-in"
               <RequireAuthRoute redirectTo={redirectTo}>
+                {/*  <Component /> = <UniversityPage */}
                 <Component />
               </RequireAuthRoute>
             }
