@@ -14,21 +14,20 @@ import ErrorMsg from '../../../components/common/ErrorMsg/ErrorMsg';
 import { authOperations, authSelectors } from '../../../redux/auth';
 import s from './SignInPage.module.css';
 
+const INVALID_EMAIL = 'singInForm.invalidEmail';
+const EMAIL_REQUIRED = 'singInForm.emailRequired';
+const PASSWORD_REQUIRED = 'singInForm.passwordRequired';
+const PASSWORD_LENGTH = 'singInForm.passwordLength';
+const PASSWORD_CRITERIA = 'singInForm.passwordCriteria';
+
 const schema = yup.object().shape({
-  email: yup
-    .string()
-    .trim()
-    .email('singInForm.invalidEmail')
-    .required('singInForm.emailRequired'),
+  email: yup.string().trim().email(INVALID_EMAIL).required(EMAIL_REQUIRED),
   password: yup
     .string()
     .trim()
-    .required('singInForm.passwordRequired')
-    .min(8, 'singInForm.passwordLength')
-    .matches(
-      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/,
-      'singInForm.passwordCriteria',
-    ),
+    .required(PASSWORD_REQUIRED)
+    .min(8, PASSWORD_LENGTH)
+    .matches(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/, PASSWORD_CRITERIA),
 });
 
 const SignInPage = () => {
