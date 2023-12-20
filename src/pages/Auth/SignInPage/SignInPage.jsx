@@ -12,6 +12,7 @@ import Paper from '../../../components/common/Paper/Paper';
 import Header from '../../../components/Header/Header';
 import ErrorMsg from '../../../components/common/ErrorMsg/ErrorMsg';
 import { authOperations, authSelectors } from '../../../redux/auth';
+import s from './SignInPage.module.css';
 
 const schema = yup.object().shape({
   email: yup
@@ -65,30 +66,32 @@ const SignInPage = () => {
       <Header />
 
       <Paper>
-        <div style={{ padding: 20 }}>
+        <div className={s.container}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <label>
+            <label className={s.label}>
               {t('singInForm.email')}
               <input
                 {...register('email')}
                 type="text"
                 placeholder="email@mail.com"
+                className={s.input}
               />
               {errors.email && <ErrorMsg message={t(errors.email.message)} />}
             </label>
 
-            <label>
+            <label className={s.label}>
               {t('singInForm.password')}
-              <div style={{ display: 'flex' }}>
+              <div className={s.passwordContainer}>
                 <input
                   {...register('password')}
                   type={showPassword ? 'text' : 'password'}
                   placeholder="Qqwe123!"
+                  className={`${s.input} ${s.passwordInput}`}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  style={{ cursor: 'pointer', marginLeft: '-25px' }}
+                  className={s.passwordToggle}
                 >
                   {showPassword ? <BsEyeSlash /> : <BsEye />}
                 </button>

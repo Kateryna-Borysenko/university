@@ -1,0 +1,35 @@
+.container {
+  width: 500px;
+  margin: 100px auto;
+}
+
+.label {
+  margin-bottom: 10px;
+  display: block;
+}
+
+.input {
+  display: block;
+  width: 96%;
+  padding: 8px;
+  margin: 10px 0;
+}
+
+.input::placeholder {
+  font-size: 14px;
+}
+
+.input:focus {
+  outline-color: #e1b4d3;
+}
+
+.passwordContainer {
+  display: flex;
+}
+
+.passwordToggle {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: -25px;
+}
