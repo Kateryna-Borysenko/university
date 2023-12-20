@@ -11,6 +11,7 @@ import EditCard from '../common/EditCard/EditCard';
 import AddForm from '../common/AddForm/AddForm';
 import Filter from './Filter/Filter';
 import DeleteCard from '../common/DeleteCard/DeleteCard';
+import AbsenceMsg from '../common/AbsenceMsg/AbsenceMsg';
 import {
   citiesActions,
   citiesOperations,
@@ -153,7 +154,7 @@ const CitiesBlock = () => {
         />
       )}
 
-      {noCities && <h4 className="absence-msg">{t('cities.no-cities')}</h4>}
+      {noCities && <AbsenceMsg message={t('cities.no-cities')} />}
 
       {isAddFormOpen && (
         <AddForm

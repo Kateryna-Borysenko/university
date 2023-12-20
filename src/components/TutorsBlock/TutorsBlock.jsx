@@ -5,6 +5,7 @@ import BigButton from '../common/BigButton/BigButton';
 import Loader from '../common/Loader/Loader';
 import ErrorMsg from '../common/ErrorMsg/ErrorMsg';
 import Skeleton from '../common/Skeleton/Skeleton';
+import AbsenceMsg from '../common/AbsenceMsg/AbsenceMsg';
 import Paper from '../common/Paper/Paper';
 import Tutor from './Tutor/Tutor';
 import TutorForm from './TutorForm/TutorForm';
@@ -53,7 +54,7 @@ const TutorsBlock = () => {
         </ul>
       )}
 
-      {noTutors && <h4 className="absence-msg">{t('tutors.no-tutors')}</h4>}
+      {noTutors && <AbsenceMsg message={t('tutors.no-tutors')} />}
 
       {error && <ErrorMsg message={error} />}
 

@@ -10,6 +10,7 @@ import EditCard from '../common/EditCard/EditCard';
 import ErrorMsg from '../common/ErrorMsg/ErrorMsg';
 import Loader from '../common/Loader/Loader';
 import Modal from '../common/Modal/Modal';
+import AbsenceMsg from '../common/AbsenceMsg/AbsenceMsg';
 import {
   departmentsOperations,
   departmentsSelectors,
@@ -142,7 +143,7 @@ const DepartmentsBlock = () => {
       )}
 
       {noDepartments && (
-        <h4 className="absence-msg">{t('departments.no-departments')}</h4>
+        <AbsenceMsg message={t('departments.no-departments')} />
       )}
 
       {isAddFormOpen && (

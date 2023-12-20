@@ -13,7 +13,6 @@ const signUp = createAsyncThunk(
         `${BASE_URL}:signUp?key=${API_KEY}`,
         body,
       );
-
       return data;
     } catch (error) {
       // console.dir(error) //response.data.error.message - что бы скопировать путь кликаем мышью и выбираем copy property path
