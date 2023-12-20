@@ -1,24 +1,8 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-////////// SIGN_UP_URL ///////////
-// 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]';
-////////// SIGN_IN_URL ///////////
-// 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]';
-///////// GET_USER_URL ///////////
-// 'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=[API_KEY]';
-
 const BASE_URL = process.env.REACT_APP_FIREBASE_URL;
 const API_KEY = process.env.REACT_APP_FIREBASE_KEY;
-
-// const token = {
-//   set(token) {
-//     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-//   },
-//   unset() {
-//     axios.defaults.headers.common.Authorization = '';
-//   },
-// };
 
 const signUp = createAsyncThunk(
   'auth/signUp',
@@ -30,11 +14,11 @@ const signUp = createAsyncThunk(
         body,
       );
 
-      // token.set(data.token);
-
       return data;
     } catch (error) {
+      // console.dir(error) //response.data.error.message - что бы скопировать путь кликаем мышью и выбираем copy property path
       return rejectWithValue(error.response.data.error.message);
+      //в этом месте можно сделать проверку и вывести более понятное сообщение для пользователя
     }
   },
 );
@@ -49,8 +33,6 @@ const signIn = createAsyncThunk(
         body,
       );
 
-      // token.set(data.token);
-
       return data;
     } catch (error) {
       return rejectWithValue(error.response.data.error.message);
@@ -58,23 +40,12 @@ const signIn = createAsyncThunk(
   },
 );
 
-// const signOut = createAsyncThunk('auth/signOut', async () => {
-//   try {
-//     // await axios.post('/signout');
-//     // token.unset();
-//   } catch (error) {
-//     // return error;
-//   }
-// });
-
 const getUser = createAsyncThunk('auth/getUser', async (token, thunkApi) => {
   const persistedToken = token ?? thunkApi.getState().auth.token;
 
   if (!persistedToken) {
     return thunkApi.rejectWithValue();
   }
-
-  // token.set(persistedToken);
 
   try {
     const body = { idToken: persistedToken };
@@ -84,7 +55,6 @@ const getUser = createAsyncThunk('auth/getUser', async (token, thunkApi) => {
     );
     return data.users[0];
   } catch (error) {
-    // token.unset();
     const errMsg = error.response.data.error.message;
     if (errMsg === 'INVALID_ID_TOKEN') {
       thunkApi.dispatch(refreshToken());

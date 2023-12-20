@@ -1,4 +1,14 @@
 import { createReducer, combineReducers } from '@reduxjs/toolkit';
+
+// {
+//   "firstName": "Мария",
+//     "lastName": "Руденко",
+//       "gender": "женщина",
+//         "phone": "+38(097) 448 73 11",
+//           "email": "rudenko@gmail.com",
+//             "city": "Полтава",
+//               "isFullTime": true
+// }
 import {
   getTutorsRequest,
   getTutorsSuccess,

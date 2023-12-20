@@ -29,6 +29,7 @@ export const SignUpPage = () => {
     const credentials = { displayName, email, password };
     dispatch(authOperations.signUp(credentials)).then(() => {
       navigation(location.state?.from ?? '/university', { replace: true });
+      toast.success('Registration completed successfully');
     });
   };
 

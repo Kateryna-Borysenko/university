@@ -18,9 +18,11 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    //for not async operation
     signOut: () => initialState,
   },
   extraReducers: builder => {
+    //for async operation -> work with backend
     builder
       .addCase(signUp.pending, state => {
         state.loading = true;

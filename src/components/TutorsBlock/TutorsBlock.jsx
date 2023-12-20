@@ -10,7 +10,6 @@ import Tutor from './Tutor/Tutor';
 import TutorForm from './TutorForm/TutorForm';
 import { tutorsSelectors, tutorsOperations } from '../../redux/tutors';
 import plusImg from '../../images/add.svg';
-import s from './TutorsBlock.module.css';
 
 const TutorsBlock = () => {
   const { t } = useTranslation();
@@ -36,39 +35,36 @@ const TutorsBlock = () => {
   const noTutors = !firstLoading && !tutors.length;
 
   const showTutors = !firstLoading && !!tutors.length;
-
   return (
     <>
       {firstLoading && <Skeleton />}
 
       {firstLoading && <Loader />}
 
+      {showTutors && (
+        <ul style={{ marginBottom: 24 }}>
+          {tutors.map(tutor => (
+            <li key={tutor.id} css={{ marginBottom: 24 }}>
+              <Paper>
+                <Tutor {...tutor} />
+              </Paper>
+            </li>
+          ))}
+        </ul>
+      )}
+
       {noTutors && <h4 className="absence-msg">{t('tutors.no-tutors')}</h4>}
 
-      {showTutors && (
-        <div className={s.container}>
-          <ul>
-            {tutors.map(tutor => (
-              <li key={tutor.id} className={s.tutor_container}>
-                <Paper>
-                  <Tutor {...tutor} />
-                </Paper>
-              </li>
-            ))}
-          </ul>
+      {error && <ErrorMsg message={error} />}
 
-          {isFormOpen && <TutorForm closeForm={toggleForm} />}
+      {isFormOpen && <TutorForm closeForm={toggleForm} />}
 
-          {error && <ErrorMsg message={error} />}
-
-          <BigButton
-            onClick={toggleForm}
-            icon={!isFormOpen && plusImg}
-            text={isFormOpen ? t('common.cancel-add') : t('tutors.add-tutor')}
-            disabled={firstLoading}
-          />
-        </div>
-      )}
+      <BigButton
+        onClick={toggleForm}
+        icon={!isFormOpen && plusImg}
+        text={isFormOpen ? t('common.cancel-add') : t('tutors.add-tutor')}
+        disabled={firstLoading}
+      />
     </>
   );
 };

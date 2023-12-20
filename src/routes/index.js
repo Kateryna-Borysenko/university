@@ -1,11 +1,5 @@
 import { lazy } from 'react';
 
-const DepartmentPage = lazy(
-  () =>
-    import(
-      '../pages/DepartmentPage/DepartmentPage' /* webpackChunkName: "Department___page" */
-    ),
-);
 const DepartmentsListPage = lazy(
   () =>
     import(
@@ -37,11 +31,6 @@ const SignInPage = lazy(
 const departmentsListRoute = {
   path: '/departments',
   component: DepartmentsListPage,
-};
-
-const departmentRoute = {
-  path: '/departments/:id/*',
-  component: DepartmentPage,
 };
 
 // ONLY AUTH

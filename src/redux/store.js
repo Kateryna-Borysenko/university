@@ -34,11 +34,11 @@ STORE = {
   
   auth: {
   user: {name: null, email: null}
-  token: null
-  localId: null
+  token: null //for firebase
+  localId: null //for firebase
   refreshToken: null
-  loading: false
-  loadingUser: false
+  loading: false //when log in or log up 
+  loadingUser: false //when user has already log in an get some user info 
   error: null
   }
 
