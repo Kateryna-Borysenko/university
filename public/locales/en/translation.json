@@ -89,5 +89,15 @@
     "history": "history",
     "go-back-btn": "Go Back to all departments",
     "not-found": "The department not found"
+  },
+  "singInForm": {
+    "email": "Email",
+    "invalidEmail": "Invalid email address",
+    "emailRequired": "Email is required",
+    "password": "Password",
+    "passwordRequired": "Password is required",
+    "passwordLength": "Password must be at least 8 characters",
+    "passwordCriteria": "Password must contain at least one uppercase letter, one lowercase letter, and one digit",
+    "signIn": "Sign In"
   }
 }

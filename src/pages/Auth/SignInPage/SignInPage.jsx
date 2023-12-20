@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -16,20 +17,22 @@ const schema = yup.object().shape({
   email: yup
     .string()
     .trim()
-    .email('Invalid email')
-    .required('Email is required'),
+    .email('singInForm.invalidEmail')
+    .required('singInForm.emailRequired'),
   password: yup
     .string()
     .trim()
-    .required('Password is required')
-    .min(8, 'Password must be at least 8 characters')
+    .required('singInForm.passwordRequired')
+    .min(8, 'singInForm.passwordLength')
     .matches(
       /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/,
-      'Password must contain at least one uppercase letter, one lowercase letter, and one digit',
+      'singInForm.passwordCriteria',
     ),
 });
 
 const SignInPage = () => {
+  const { t } = useTranslation();
+
   const {
     register,
     handleSubmit,
@@ -65,17 +68,17 @@ const SignInPage = () => {
         <div style={{ padding: 20 }}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <label>
-              Email
+              {t('singInForm.email')}
               <input
                 {...register('email')}
                 type="text"
                 placeholder="email@mail.com"
               />
-              {errors.email && <ErrorMsg message={errors.email.message} />}
+              {errors.email && <ErrorMsg message={t(errors.email.message)} />}
             </label>
 
             <label>
-              Password
+              {t('singInForm.password')}
               <div style={{ display: 'flex' }}>
                 <input
                   {...register('password')}
@@ -91,11 +94,15 @@ const SignInPage = () => {
                 </button>
               </div>
               {errors.password && (
-                <ErrorMsg message={errors.password.message} />
+                <ErrorMsg message={t(errors.password.message)} />
               )}
             </label>
 
-            <BigButton type="submit" text="Sign In" disabled={loading} />
+            <BigButton
+              type="submit"
+              text={t('singInForm.signIn')}
+              disabled={loading}
+            />
           </form>
         </div>
       </Paper>
