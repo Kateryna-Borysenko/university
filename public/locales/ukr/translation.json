@@ -99,5 +99,27 @@
     "passwordLength": "Пароль повинен містити принаймні 8 символів",
     "passwordCriteria": "Пароль повинен містити принаймні одну велику літеру, одну малу літеру та одну цифру",
     "signIn": "Увійти"
+  },
+  "signUpForm": {
+    "name": "Ім'я",
+    "nameRequired": "Ім'я обов'язкове",
+    "email": "Електронна пошта",
+    "invalidEmail": "Невірна електронна адреса",
+    "emailRequired": "Електронна пошта обов'язкова",
+    "password": "Пароль",
+    "passwordRequired": "Пароль обов'язковий",
+    "passwordLength": "Пароль повинен містити принаймні 8 символів",
+    "passwordCriteria": "Пароль повинен містити хоча б одну велику літеру, одну малу літеру та одну цифру",
+    "confirmPassword": "Підтвердження пароля",
+    "confirmPasswordRequired": "Підтвердження пароля обов'язкове",
+    "passwordMismatch": "Паролі не співпадають",
+    "placeholderName": "Ім'я",
+    "placeholderConfirmPassword": "Повторіть пароль",
+    "signUp": "Зареєструватися",
+    "registrationSuccess": "Реєстрація успішно завершена"
+  },
+  "footer": {
+    "createdBy": "створено",
+    "lastName": "Борисенко"
   }
 }

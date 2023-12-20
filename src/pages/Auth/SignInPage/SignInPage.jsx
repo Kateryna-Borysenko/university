@@ -84,7 +84,7 @@ const SignInPage = () => {
                 <input
                   {...register('password')}
                   type={showPassword ? 'text' : 'password'}
-                  placeholder="Qqwe123!"
+                  placeholder="********"
                   className={`${s.input} ${s.passwordInput}`}
                 />
                 <button

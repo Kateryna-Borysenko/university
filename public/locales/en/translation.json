@@ -99,5 +99,26 @@
     "passwordLength": "Password must be at least 8 characters",
     "passwordCriteria": "Password must contain at least one uppercase letter, one lowercase letter, and one digit",
     "signIn": "Sign In"
+  },
+  "signUpForm": {
+    "name": "Name",
+    "nameRequired": "Name is required",
+    "email": "Email",
+    "invalidEmail": "Invalid email address",
+    "emailRequired": "Email is required",
+    "password": "Password",
+    "passwordRequired": "Password is required",
+    "passwordLength": "Password must be at least 8 characters",
+    "passwordCriteria": "Password must contain at least one uppercase letter, one lowercase letter, and one digit",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordRequired": "Confirm Password is required",
+    "passwordMismatch": "Passwords do not match",
+    "placeholderName": "First Name",
+    "signUp": "Sign Up",
+    "registrationSuccess": "Registration completed successfully"
+  },
+  "footer": {
+    "createdBy": "created by",
+    "lastName": "Borysenko"
   }
 }
