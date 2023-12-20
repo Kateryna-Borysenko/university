@@ -1,10 +1,12 @@
 import s from './Footer.module.css';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+  const { t } = useTranslation();
   return (
     <footer className={s.footer}>
       <div className={s.wrap}>
-        ©2023-{new Date().getFullYear()} created with ❤️ by
+        ©2023-{new Date().getFullYear()} {t('footer.createdBy')}
         <a href="https://github.com/Kateryna-Borysenko" className={s.link}>
           <svg
             className={s.svg}
@@ -29,7 +31,7 @@ const Footer = () => {
               transform="translate(-469.55 -475.83)"
             />
           </svg>
-          <span className={s.lastName}>Borysenko</span>
+          <span className={s.lastName}>{t('footer.lastName')}</span>
         </a>
       </div>
     </footer>
