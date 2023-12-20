@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import BigButton from '../../../components/common/BigButton/BigButton';
 import Paper from '../../../components/common/Paper/Paper';
 import Header from '../../../components/Header/Header';
@@ -38,6 +39,7 @@ const SignInPage = () => {
   });
   const location = useLocation();
   const navigation = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const error = useSelector(authSelectors.getError);
   const loading = useSelector(authSelectors.getLoading);
@@ -74,11 +76,20 @@ const SignInPage = () => {
 
             <label>
               Password
-              <input
-                {...register('password')}
-                type="password"
-                placeholder="********"
-              />
+              <div style={{ display: 'flex' }}>
+                <input
+                  {...register('password')}
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Qqwe123!"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{ cursor: 'pointer', marginLeft: '-25px' }}
+                >
+                  {showPassword ? <BsEyeSlash /> : <BsEye />}
+                </button>
+              </div>
               {errors.password && (
                 <ErrorMsg message={errors.password.message} />
               )}
