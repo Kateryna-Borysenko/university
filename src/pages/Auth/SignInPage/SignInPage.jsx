@@ -1,15 +1,41 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import BigButton from '../../../components/common/BigButton/BigButton';
 import Paper from '../../../components/common/Paper/Paper';
 import Header from '../../../components/Header/Header';
+import ErrorMsg from '../../../components/common/ErrorMsg/ErrorMsg';
 import { authOperations, authSelectors } from '../../../redux/auth';
 
-export const SignInPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .trim()
+    .email('Invalid email')
+    .required('Email is required'),
+  password: yup
+    .string()
+    .trim()
+    .required('Password is required')
+    .min(8, 'Password must be at least 8 characters')
+    .matches(
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/,
+      'Password must contain at least one uppercase letter, one lowercase letter, and one digit',
+    ),
+});
+
+const SignInPage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
   const location = useLocation();
   const navigation = useNavigate();
 
@@ -18,18 +44,16 @@ export const SignInPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!error) return;
-    toast.error(error);
+    if (error) {
+      toast.error(error);
+    }
   }, [error]);
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    dispatch(authOperations.signIn({ email, password })).then(() => {
+  const onSubmit = data => {
+    dispatch(authOperations.signIn(data)).then(() => {
       navigation(location.state?.from ?? '/university', { replace: true });
     });
   };
-
-  const isBtnDisabled = loading || !email || !password;
 
   return (
     <div>
@@ -37,30 +61,30 @@ export const SignInPage = () => {
 
       <Paper>
         <div style={{ padding: 20 }}>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <label>
               Email
               <input
-                value={email}
+                {...register('email')}
                 type="text"
                 placeholder="email@mail.com"
-                required
-                onChange={e => setEmail(e.target.value)}
               />
+              {errors.email && <ErrorMsg message={errors.email.message} />}
             </label>
 
             <label>
               Password
               <input
-                value={password}
-                type="text"
-                placeholder="qwerty1234"
-                required
-                onChange={e => setPassword(e.target.value)}
+                {...register('password')}
+                type="password"
+                placeholder="********"
               />
+              {errors.password && (
+                <ErrorMsg message={errors.password.message} />
+              )}
             </label>
 
-            <BigButton type="submit" text="Sign In" disabled={isBtnDisabled} />
+            <BigButton type="submit" text="Sign In" disabled={loading} />
           </form>
         </div>
       </Paper>
