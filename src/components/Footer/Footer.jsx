@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className={s.footer}>
       <div className={s.wrap}>
-        ©2023-{new Date().getFullYear()} {t('footer.createdBy')}
+        ©{new Date().getFullYear()} {t('footer.createdBy')}
         <a href="https://github.com/Kateryna-Borysenko" className={s.link}>
           <svg
             className={s.svg}
