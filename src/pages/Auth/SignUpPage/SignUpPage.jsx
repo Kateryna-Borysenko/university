@@ -1,11 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import BigButton from '../../../components/common/BigButton/BigButton';
 import Paper from '../../../components/common/Paper/Paper';
 import Header from '../../../components/Header/Header';
@@ -59,16 +58,9 @@ const SignUpPage = () => {
   const error = useSelector(authSelectors.getError);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-    }
-  }, [error]);
-
   const onSubmit = data => {
     dispatch(authOperations.signUp(data)).then(() => {
       navigation(location.state?.from ?? '/university', { replace: true });
-      toast.success(t('signUpForm.registrationSuccess'));
     });
   };
 
@@ -78,6 +70,7 @@ const SignUpPage = () => {
 
       <Paper>
         <div className={s.container}>
+          {error && <ErrorMsg message={error} />}
           <form onSubmit={handleSubmit(onSubmit)}>
             <label className={s.label}>
               {t('signUpForm.name')}

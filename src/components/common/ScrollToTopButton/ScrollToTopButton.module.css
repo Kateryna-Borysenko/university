@@ -3,6 +3,7 @@
   justify-content: flex-end;
   opacity: 0;
   transition: opacity 0.4s;
+  margin-top: 24px;
 }
 
 .button {

@@ -114,8 +114,7 @@
     "confirmPasswordRequired": "Confirm Password is required",
     "passwordMismatch": "Passwords do not match",
     "placeholderName": "First Name",
-    "signUp": "Sign Up",
-    "registrationSuccess": "Registration completed successfully"
+    "signUp": "Sign Up"
   },
   "footer": {
     "createdBy": "created by",
