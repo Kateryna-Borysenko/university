@@ -2,7 +2,10 @@
 
 [![To watch video click to the building](./src/images/building.png)](https://drive.google.com/file/d/1vB9WxkJZA2dlv5am3Y8AF02FDaVgOKKh/view?usp=sharing)
 
-## To watch video click to the building
+## To watch the video click on the building
+### SING IN
+EMAIL: k@gmail.com <br/>
+PASSWORD: Qqwe123!
 
  <img src="./src/images/readmeImg/screen_page.png" width="900" alt="University app">
  <img src="./src/images/readmeImg/screen_sing_up.png" width="900" alt="University app">
