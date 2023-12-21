@@ -45,7 +45,7 @@ const TutorsBlock = () => {
       {showTutors && (
         <ul style={{ marginBottom: 24 }}>
           {tutors.map(tutor => (
-            <li key={tutor.id} css={{ marginBottom: 24 }}>
+            <li key={tutor.id} style={{ marginBottom: 24 }}>
               <Paper>
                 <Tutor {...tutor} />
               </Paper>
