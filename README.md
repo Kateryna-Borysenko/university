@@ -1,9 +1,12 @@
-Реализация формы TUTOR
+# `University with React Redux Redux-thunk`
 
-по нажатию на кнопку ADD TUTOR открывалась форма
-при открытой форме значение кнопки меняется на CANCEL
-в форме кнопка INVITE изначально не активна, актив только при заполнении всех полей корректно
-после нажатия на кнопку INVITE , информация о преподавателе выводится в списке преподавателей
+[![To watch video click to the building](./src/images/building.png)](https://drive.google.com/file/d/1vB9WxkJZA2dlv5am3Y8AF02FDaVgOKKh/view?usp=sharing)
+
+## To watch video click to the building
+
+ <img src="./src/images/readmeImg/screen_page.png" width="900" alt="University app">
+ <img src="./src/images/readmeImg/screen_sing_up.png" width="900" alt="University app">
+ <img src="./src/images/readmeImg/screen_sing_up.png" width="900" alt="University app">
 
 <!--
 решение проблемы с УТЕЧКОЙ ПАМЯТИ
