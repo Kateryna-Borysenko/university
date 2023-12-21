@@ -64,6 +64,12 @@ STORE = {
     loading: false,
     error: null
   }
+
+  univer:{
+    image: null,
+    loading: false,
+    error: null
+  }
 }
 
 */

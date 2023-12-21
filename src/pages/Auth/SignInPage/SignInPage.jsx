@@ -1,11 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import BigButton from '../../../components/common/BigButton/BigButton';
 import Paper from '../../../components/common/Paper/Paper';
@@ -43,16 +42,9 @@ const SignInPage = () => {
   const location = useLocation();
   const navigation = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
   const error = useSelector(authSelectors.getError);
   const loading = useSelector(authSelectors.getLoading);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-    }
-  }, [error]);
 
   const onSubmit = data => {
     dispatch(authOperations.signIn(data)).then(() => {
@@ -63,9 +55,9 @@ const SignInPage = () => {
   return (
     <div>
       <Header />
-
       <Paper>
         <div className={s.container}>
+          {error && <ErrorMsg message={error} />}
           <form onSubmit={handleSubmit(onSubmit)}>
             <label className={s.label}>
               {t('singInForm.email')}

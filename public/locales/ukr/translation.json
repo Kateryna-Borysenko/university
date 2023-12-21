@@ -115,8 +115,7 @@
     "passwordMismatch": "Паролі не співпадають",
     "placeholderName": "Ім'я",
     "placeholderConfirmPassword": "Повторіть пароль",
-    "signUp": "Зареєструватися",
-    "registrationSuccess": "Реєстрація успішно завершена"
+    "signUp": "Зареєструватися"
   },
   "footer": {
     "createdBy": "створено",
