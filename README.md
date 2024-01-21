@@ -4,8 +4,10 @@
 
 ## To watch the video click on the building
 ### SING IN
+```
 EMAIL: k@gmail.com <br/>
 PASSWORD: Qqwe123!
+```
 
  <img src="./src/images/readmeImg/screen_page.png" width="900" alt="University app">
  <img src="./src/images/readmeImg/screen_sing_up.png" width="900" alt="University app">
